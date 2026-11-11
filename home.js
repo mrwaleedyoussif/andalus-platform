@@ -6,7 +6,7 @@
 
 // ------------------------------------------------------------------ texts
 Object.assign(I18N.ar, {
-  navHome: 'الرئيسية', homeHello: 'مرحباً، {n}', homeSub: '{s} · العام {y}',
+  navHome: 'الرئيسية', homeHello: 'مرحباً، {n}', homeSub: 'العام الدراسي {y}',
   gSearchPh: 'ابحث في البرامج والمؤشرات وأوراق المنصة…', gProgs: 'البرامج', gInds: 'المؤشرات', gSheets: 'أوراق المنصة', gNone: 'لا نتائج مطابقة', gMore: 'و{n} أخرى…',
   stMine: 'برامجي', stAllProgs: 'كل البرامج', stLate: 'متأخرة', stSoon: 'قريبة', stDone: 'مكتملة',
   tInd: 'المؤشرات', tIndD: 'تعريف كل مؤشر ومستهدفاته وتقدّم برامجه', tMine: 'برامجي', tMineD: 'البرامج التي تنفّذها أو تتابعها', tQuick: 'إدخال سريع', tQuickD: 'تواريخ وحالات عدة برامج دفعة واحدة',
@@ -24,7 +24,7 @@ Object.assign(I18N.ar, {
   printedOn: 'طُبع في {d}'
 });
 Object.assign(I18N.en, {
-  navHome: 'Home', homeHello: 'Hello, {n}', homeSub: '{s} · year {y}',
+  navHome: 'Home', homeHello: 'Hello, {n}', homeSub: 'School year {y}',
   gSearchPh: 'Search programs, indicators and platform sheets…', gProgs: 'Programs', gInds: 'Indicators', gSheets: 'Platform sheets', gNone: 'No matches', gMore: 'and {n} more…',
   stMine: 'My programs', stAllProgs: 'All programs', stLate: 'Overdue', stSoon: 'Coming up', stDone: 'Completed',
   tInd: 'Indicators', tIndD: 'Definitions, targets and program progress', tMine: 'My programs', tMineD: 'Programs you implement or follow', tQuick: 'Quick entry', tQuickD: 'Dates and status for many programs at once',

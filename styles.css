@@ -368,3 +368,57 @@ header .school.sa img{height:28px}
 @media print{ .schools{box-shadow:none} }
 .sch-a img{height:104px}.sch-b img{height:76px}
 @media (max-width:700px){.sch-a img{height:80px}.sch-b img{height:56px}}
+
+/* =====================================================================================================
+   Andalus identity — colours taken from the two school logos
+   navy #173A86 · indigo #2B2A74 · blue #0063AF · cyan #00A8D0 · purple #994A96 · coral #DF6263 · deep purple #482580 · gold #ECC47A
+   ===================================================================================================== */
+:root{--navy:#173a86;--navy2:#2b2a74;--teal:#0063af;--teal2:#00a8d0;--purple:#994a96;--coral:#df6263;--deep:#482580;--gold:#ecc47a;
+  --bg:#f2f5fb;--ink:#14213d;--line:#e2e8f3;--ring:rgba(0,168,208,.32);
+  --ok:#1e8e3e;--run:#0063af;--wait:#e0a526;--hold:#994a96;--off:#df6263;--late:#c8434a;
+  --brand-stripe:linear-gradient(90deg,#00a8d0 0 25%,#0063af 25% 50%,#994a96 50% 75%,#df6263 75% 100%)}
+header{background:linear-gradient(120deg,#2b2a74 0%,#173a86 50%,#0063af 100%);box-shadow:0 2px 12px rgba(23,58,134,.25)}
+header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--brand-stripe)}
+nav button.on{color:var(--navy);border-bottom-color:var(--teal2)}
+@media (max-width:700px){nav button.on{background:#e8eef9;color:var(--navy)}}
+input:focus,select:focus,textarea:focus{border-color:var(--teal2)}
+.btn.p{background:linear-gradient(180deg,#0a72c4,#0063af);box-shadow:0 1px 2px rgba(0,99,175,.35)}
+.btn.n{background:linear-gradient(180deg,#24479b,#173a86)}
+.bar i,.bar span{background:linear-gradient(90deg,#00a8d0,#0063af)}
+.tag,.kpi .kic{background:#e8eef9;color:var(--navy)}
+.kpi.run .kic{background:#e3f0fb;color:#0063af}.kpi.late .kic{background:#fdeaea;color:#c8434a}.kpi.ok .kic{background:#e7f5ec;color:#1e8e3e}
+.s-قيد-التنفيذ{background:#e3f0fb;color:#0063af;border-color:#b8d6f2}
+.s-مؤجل{background:#f5eaf4;color:#83407f;border-color:#e2c6e0}
+.s-ملغى{background:#fdeaea;color:#c8434a;border-color:#f5c3c4}
+.s-مكتمل{background:#e7f5ec;color:#1e7a37;border-color:#bfe3c9}
+.s-لم-يبدأ{background:#fdf4e1;color:#8a5a00;border-color:#efd59b}
+/* home */
+.hero{background:radial-gradient(circle at 94% 6%,rgba(0,168,208,.45) 0,transparent 34%),radial-gradient(circle at 4% 104%,rgba(153,74,150,.42) 0,transparent 38%),linear-gradient(130deg,#2b2a74 0%,#173a86 45%,#0063af 100%)}
+.schools{position:relative;overflow:hidden}
+.schools::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--brand-stripe)}
+.sch-mid h2{color:var(--navy)}
+.hic{background:#e8eef9;color:var(--navy)}
+.htile:nth-child(5n+1) .hic{background:#e0f4fa;color:#007c99}
+.htile:nth-child(5n+2) .hic{background:#e3eefa;color:#0063af}
+.htile:nth-child(5n+3) .hic{background:#f4e9f4;color:#994a96}
+.htile:nth-child(5n+4) .hic{background:#fcebeb;color:#c8434a}
+.htile:nth-child(5n+5) .hic{background:#ece8f5;color:#482580}
+.hstat>.i{color:var(--navy)}.hstat.late>.i,.hstat.late b{color:#c8434a}.hstat.soon>.i{color:#c98a12}.hstat.ok>.i,.hstat.ok b{color:#1e8e3e}
+.guide{border-color:#bfe3ee;background:linear-gradient(180deg,#eef9fc,#fff)}
+.gitem>.i{color:var(--teal)}
+/* stage bar, platform, indicators */
+.stagebar.filtered{border-color:#9fd8e8;background:linear-gradient(180deg,#eef9fc,#fff)}
+.stagebar.filtered select{border-color:var(--teal2)}
+.stagebar .sb-note{color:var(--teal)}
+.ptile .pc{background:var(--navy)}.ptile.on{background:var(--navy);border-color:var(--navy)}.ptile.on .pc{background:var(--teal2)}
+.stc.on,.psec.on{background:var(--navy);border-color:var(--navy)}
+.ibtn{color:var(--navy)}
+/* sign-in */
+body:has(#v-login.on),body:has(#v-pwforce.on){background:radial-gradient(900px 520px at 88% -8%,#dceaf8 0%,transparent 60%),radial-gradient(800px 520px at 8% 108%,#f2e5f1 0%,transparent 55%),var(--bg)}
+#v-login .card.login,#v-pwforce .card.login{box-shadow:0 22px 50px rgba(23,58,134,.14);position:relative;overflow:hidden}
+#v-login .card.login::before,#v-pwforce .card.login::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--brand-stripe)}
+.lock-hero{color:var(--teal)}
+.robar.ctrl{background:#eef5fd;border-color:#bcd6f2}
+header .school.sa{padding:3px 5px}
+header .school.sa img{height:30px;width:30px}
+@media (max-width:700px){header .school.sa img{height:28px;width:28px}}

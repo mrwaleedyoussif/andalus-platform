@@ -1,8 +1,8 @@
 /* Service worker — caches the app shell so it opens instantly and works offline (read-only).
    API calls (script.google.com) are never cached. Bump CACHE on every release. */
-const CACHE = 'andalus-platform-v8';
-const SHELL = ['./', './index.html', './styles.css?v=11', './icons.js?v=1', './app.js?v=9', './plat.js?v=7', './home.js?v=3', './stage.js?v=1', './i18n.js?v=11', './config.js?v=7', './manifest.webmanifest',
-  './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-192.png', './icons/maskable-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png', './icons/favicon-64.png', './icons/school-logo.png', './icons/school-logo-ahliyya.png',
+const CACHE = 'andalus-platform-v10';
+const SHELL = ['./', './index.html', './styles.css?v=13', './icons.js?v=1', './app.js?v=9', './plat.js?v=7', './home.js?v=4', './stage.js?v=1', './i18n.js?v=11', './config.js?v=7', './manifest.webmanifest',
+  './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-192.png', './icons/maskable-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png', './icons/favicon-64.png', './icons/school-logo.png', './icons/school-logo-ahliyya.png', './icons/ahliya-mark.png',
   './fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2', './fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2', './fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2',
   './fonts/ibm-plex-sans-arabic-latin-400-normal.woff2', './fonts/ibm-plex-sans-arabic-latin-600-normal.woff2', './fonts/ibm-plex-sans-arabic-latin-700-normal.woff2', './vendor/xlsx.mini.min.js'];
 
