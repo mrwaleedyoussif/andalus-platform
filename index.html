@@ -15,7 +15,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="styles.css?v=6">
+<link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
 <div id="offlineBar" class="offline" data-i18n="offline" hidden>📴 غير متصل بالإنترنت — تُعرض آخر بيانات محفوظة، ولن يُحفظ أي تعديل حتى يعود الاتصال.</div>
@@ -123,30 +123,35 @@
   <section class="view" id="v-ind">
     <div class="card">
       <h3 data-i18n="indTitle">🎯 مؤشرات المراحل الثلاث</h3>
-      <div class="grid2" style="margin-top:8px">
-        <div><input type="search" id="indQ" data-i18n-ph="indSearch" placeholder="🔎 رمز المؤشر أو اسمه…" oninput="renderInd()"></div>
-        <div><select id="indStage" onchange="renderInd()"></select></div>
-      </div>
+      <input type="search" id="indQ" data-i18n-ph="indSearch" placeholder="🔎 رمز المؤشر أو اسمه…" oninput="renderInd()" style="margin-top:8px">
+      <div id="indStage" class="stchips"></div>
       <p class="mini" id="indCount" style="margin:8px 0 0"></p>
     </div>
     <div id="indList" class="list"></div>
   </section>
 
-  <!-- PLATFORM (sheet view of the copy) -->
+  <!-- PLATFORM (sheet view of the copy) — navigation by icons -->
   <section class="view" id="v-plat">
     <div class="card">
-      <h3 data-i18n="platTitle">📑 المنصة الشاملة — نسخة المراحل الثلاث</h3>
-      <div class="row" style="margin-top:8px">
-        <select id="platTab" class="grow" onchange="platLoad(+this.value,1,0)"></select>
-        <button class="btn sm" onclick="platPage(-1)" data-i18n="platPrev">▲ السابق</button>
-        <button class="btn sm" onclick="platPage(1)" data-i18n="platNext">▼ التالي</button>
-        <input type="number" id="platRow" min="1" data-i18n-ph="platRowPh" placeholder="رقم الصف" style="width:110px" onkeydown="if(event.key==='Enter')platGo()">
-        <button class="btn sm" onclick="platGo()" data-i18n="platJump">انتقال</button>
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <h3 data-i18n="platTitle" style="margin:0">📑 المنصة الشاملة — نسخة المراحل الثلاث</h3>
         <a id="platOpen" class="btn sm" target="_blank" rel="noopener" hidden>Google Sheets ↗</a>
       </div>
-      <p class="mini" id="platInfo" style="margin:8px 0 0"></p>
+      <div id="platTiles"></div>
     </div>
-    <div id="platGrid" class="sheet-wrap"></div>
+    <div id="platBar" class="card pbar" hidden>
+      <div class="pbar-top">
+        <button class="ibtn" onclick="platHome()" data-i18n-title="platAll" title="كل الأوراق"><span>⊞</span></button>
+        <div id="platCur" class="pcur"></div>
+        <button class="ibtn" onclick="platPage(-1)" data-i18n-title="platPrev" title="السابق"><span>▲</span></button>
+        <button class="ibtn" onclick="platPage(1)" data-i18n-title="platNext" title="التالي"><span>▼</span></button>
+        <button class="ibtn" onclick="platAskRow()" data-i18n-title="platJump" title="انتقال"><span>#</span></button>
+        <a id="platOpen2" class="ibtn" target="_blank" rel="noopener" title="Google Sheets" hidden>↗</a>
+      </div>
+      <div id="platSecs" class="psecs"></div>
+      <p class="mini" id="platInfo" style="margin:6px 0 0"></p>
+    </div>
+    <div id="platGrid" class="sheet-wrap" hidden></div>
   </section>
 
   <section class="view" id="v-dash">
@@ -270,8 +275,8 @@
 <div class="updatebar" id="updateBar" hidden><span data-i18n="updateBar">تحديث جديد للتطبيق متاح</span> <button class="btn sm" onclick="location.reload()" data-i18n="updateNow">تحديث الآن</button></div>
 
 <script src="config.js?v=6"></script>
-<script src="i18n.js?v=8"></script>
+<script src="i18n.js?v=9"></script>
 <script src="app.js?v=7"></script>
-<script src="plat.js?v=3"></script>
+<script src="plat.js?v=4"></script>
 </body>
 </html>
