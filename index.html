@@ -8,7 +8,7 @@
 <title>منصة الأندلس ١٤٤٨</title>
 <meta name="description" content="منصة الأندلس ١٤٤٨ — المنصة الشاملة ومتابعة برامجها: ابتدائي بنين (أهلي/عالمي) ومتوسط بنين (عالمي)">
 <meta name="theme-color" content="#173a86">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,7 +18,8 @@
 <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preload" href="fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=17">
+<link rel="stylesheet" href="styles.css?v=18">
+<script>try{var m=localStorage.getItem("andalusPlat1448:theme")||"\"auto\"";m=JSON.parse(m);var d=m==="dark"||(m!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.dataset.theme=d?"dark":"light";}catch(e){}</script>
 </head>
 <body>
 <div id="offlineBar" class="offline" data-i18n="offline" hidden>📴 غير متصل بالإنترنت — تُعرض آخر بيانات محفوظة، ولن يُحفظ أي تعديل حتى يعود الاتصال.</div>
@@ -26,6 +27,7 @@
   <span class="school sa"><img src="icons/ahliya-mark.png" alt="مدارس الأندلس الأهلية — Alandalus Private Schools" width="30" height="30"></span>
   <h1><span class="t-full" data-i18n="appTitle">منصة الأندلس ١٤٤٨</span><span class="t-short" data-i18n="appShort">المنصة</span></h1>
   <button class="chip lang" id="langBtn" onclick="setLang(S.lang==='en'?'ar':'en')">🌐 English</button>
+  <button class="chip bell" id="bellBtn" onclick="go('inbox')" hidden aria-label="الإشعارات"><svg class="i" aria-hidden="true"><use href="#i-bell"></use></svg><span class="bdg" id="bellN" hidden></span></button>
   <button class="chip" id="userChip" onclick="go('me')">👤 تسجيل الدخول</button>
   <span class="school sb"><img src="icons/school-logo.png" alt="مدارس الأندلس العالمية — Andalus International Schools" width="69" height="26"></span>
 </header>
@@ -38,6 +40,8 @@
   <button data-v="all" class="nav-more" onclick="go('all')"><span class="ic">🔎</span><span data-i18n="navAll">كل البرامج</span></button>
   <button data-v="dash" class="nav-more" onclick="go('dash')"><span class="ic">📊</span><span data-i18n="navDash">المتابعة</span></button>
   <button data-v="plat" onclick="go('plat')"><span class="ic">📑</span><span data-i18n="navPlat">المنصة</span></button>
+  <button data-v="cal" class="nav-more" onclick="go('cal')"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-calendar-range"></use></svg></span><span data-i18n="navCal">التقويم</span></button>
+  <button data-v="appr" class="nav-more" onclick="go('appr')"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-badge-check"></use></svg></span><span data-i18n="navAppr">الاعتماد</span></button>
   <button data-v="emp" class="nav-more" onclick="go('emp')" data-admin><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-user-check"></use></svg></span><span data-i18n="navEmp">الموظفون</span></button>
   <button data-v="people" class="nav-more" onclick="go('people')" data-admin><span class="ic">👥</span><span data-i18n="navPeople">جهات الاتصال</span></button>
   <button data-v="send" class="nav-more" onclick="go('send')" data-admin><span class="ic">📤</span><span data-i18n="navSend">الإرسال</span></button>
@@ -69,6 +73,7 @@
       <label class="remember" for="rememberMe"><input type="checkbox" id="rememberMe" checked onchange="rememberHint()"> <span data-i18n="rememberMe">تذكرني على هذا الجهاز</span></label>
       <p class="mini remember-hint" id="rememberHint"></p>
       <button class="btn p wide" id="loginBtn" onclick="login()" style="margin-top:10px" data-i18n="loginBtn">دخول</button>
+      <button class="btn wide pk-btn" id="pkLoginBtn" onclick="pkSignIn()" hidden style="margin-top:8px"><svg class="i" aria-hidden="true"><use href="#i-fingerprint"></use></svg><span data-i18n="pkLogin">الدخول بالبصمة / Face ID</span></button>
       <p class="mini" id="loginHint" style="margin-top:10px"></p>
       <p class="mini" data-i18n="forgot">نسيت كلمة المرور؟ اطلب من مدير المدرسة أو مشرف المنصة تعيين كلمة جديدة لك.</p>
     </div>
@@ -296,6 +301,13 @@
   </section>
 
   <!-- ME -->
+  <section class="view" id="v-inbox"><div class="card"><div class="row between"><h2 style="margin:0" data-i18n="inboxTitle">الإشعارات</h2><button class="btn sm" onclick="inboxReadAll()" data-i18n="inboxReadAll">تعليم الكل كمقروء</button></div><div id="inboxList" class="inbox"></div></div></section>
+  <section class="view" id="v-appr"><div class="card"><h2 style="margin:0 0 4px" data-i18n="apprTitle">طلبات اعتماد الإنجاز</h2><p class="meta" data-i18n="apprIntro"></p><div id="apprList"></div></div></section>
+  <section class="view" id="v-cal"><div class="card cal-card"><div id="calHead" class="cal-head"></div><div id="calGrid"></div></div><div class="card" id="calDay"></div></section>
+  <section class="view" id="v-stars"><div class="card"><div id="starsHead"></div><div id="starsList"></div></div></section>
+  <section class="view" id="v-cert"><div class="row noprint" style="margin-bottom:10px;gap:8px"><button class="btn" onclick="go('stars')" data-i18n="back">رجوع</button><button class="btn p" onclick="printPage()" data-i18n="certPrint">طباعة / حفظ PDF</button></div><div id="certBox"></div></section>
+  <section class="view" id="v-log"><div class="card"><h2 style="margin:0 0 8px" data-i18n="logTitle">سجل النشاط</h2><div class="log-f"><input type="search" id="logQ" data-i18n-ph="logSearch" placeholder="ابحث…" onkeydown="if(event.key==='Enter')loadLog(true)"><input type="date" id="logFrom"><input type="date" id="logTo"><button class="btn p sm" onclick="loadLog(true)" data-i18n="logGo">بحث</button><button class="btn sm" onclick="exportLog()" data-i18n="exportXlsx">تصدير Excel</button></div><div id="logList"></div></div></section>
+  <section class="view" id="v-report"><div class="card noprint"><h2 style="margin:0 0 6px" data-i18n="repTitle">التقرير الأسبوعي</h2><p class="meta" data-i18n="repIntro"></p><div class="row" style="gap:8px;margin-top:8px"><button class="btn p sm" onclick="repPreview()" data-i18n="repShow">عرض تقرير هذا الأسبوع</button><button class="btn sm" onclick="repSend()" data-i18n="repSendNow">إرسال الآن للإدارة</button><button class="btn sm" onclick="printPage()" data-i18n="printPdf">طباعة / PDF</button></div></div><div class="card rep-box" id="repBox" hidden></div><div class="card noprint" id="autoBox"></div></section>
   <section class="view" id="v-me">
     <div class="card photo-card">
       <div class="pc-row">
@@ -338,6 +350,7 @@
       </div>
       <div style="margin-top:10px"><button class="btn n sm" onclick="changePin()" data-i18n="changePwBtn">تغيير كلمة المرور</button></div>
     </div>
+    <div id="meX"></div>
     <div class="card">
       <h3 data-i18n="secTitle">🛡 الأمان</h3>
       <p class="mini" data-i18n="secSession">تنتهي الجلسة تلقائياً بعد 7 أيام دون استخدام.</p>
@@ -358,18 +371,26 @@
   </section>
 </main>
 
+<div class="xmodal" id="xModal" hidden role="dialog" aria-modal="true" aria-labelledby="xmTitle"><div class="xm-back" onclick="closeProg()"></div><div class="xm-box"><button class="xm-x" onclick="closeProg()" aria-label="إغلاق"><svg class="i" aria-hidden="true"><use href="#i-x"></use></svg></button><div id="xmBody"></div></div></div>
+<div class="outbar" id="outBar" hidden></div>
 <div class="toast" id="toast"></div>
 <div class="updatebar" id="updateBar" hidden><span data-i18n="updateBar">تحديث جديد للتطبيق متاح</span> <button class="btn sm" onclick="location.reload()" data-i18n="updateNow">تحديث الآن</button></div>
 
-<script src="icons.js?v=2"></script>
-<script src="config.js?v=9"></script>
+<script src="icons.js?v=3"></script>
+<script src="config.js?v=10"></script>
 <script src="i18n.js?v=12"></script>
-<script src="app.js?v=12"></script>
+<script src="app.js?v=13"></script>
 <script src="plat.js?v=7"></script>
-<script src="home.js?v=5"></script>
+<script src="home.js?v=6"></script>
 <script src="stage.js?v=2"></script>
 <script src="emp.js?v=2"></script>
 <script src="photo.js?v=1"></script>
 <script src="pwshow.js?v=1"></script>
+<script src="prog.js?v=1"></script>
+<script src="notify.js?v=1"></script>
+<script src="passkey.js?v=1"></script>
+<script src="cal.js?v=1"></script>
+<script src="lead.js?v=1"></script>
+<script src="theme.js?v=1"></script>
 </body>
 </html>

@@ -54,7 +54,7 @@ const isFollow = (name, p) => { const n = nkey(name); return !!n && nkey(p.iresp
 // keys are namespaced: this app shares the github.io origin with «متتبع برامج المؤشرات», whose session must never leak in here
 const NS = 'andalusPlat1448:';
 // «تذكرني»: on → the session stays on this device (7 days without use); off → the session lives only until the app/browser is closed
-const SESSION_KEYS = ['tr_token', 'tr_me', 'tr_cache', 'pmodel', 'ptabs', 'photos', 'mustChange'];
+const SESSION_KEYS = ['tr_token', 'tr_me', 'tr_cache', 'pmodel', 'ptabs', 'photos', 'mustChange', 'xstate', 'outbox'];
 const _ls = () => { try { return window.localStorage; } catch (e) { return null; } }, _ss = () => { try { return window.sessionStorage; } catch (e) { return null; } };
 let REMEMBER = (() => { try { return _ls().getItem(NS + 'remember') !== '0'; } catch (e) { return true; } })();
 const _box = k => (!REMEMBER && SESSION_KEYS.includes(k) ? _ss() : _ls());
@@ -198,17 +198,21 @@ async function login() {
   const btn = $('loginBtn'); btn.disabled = true; btn.innerHTML = '<span class="spin"></span> ' + t('loggingIn');
   try {
     const r = await api('login', { name, pin });
-    setRemember(!$('rememberMe') || $('rememberMe').checked);
-    S.token = r.token; S.me = r.me; store.set('tr_token', S.token); store.set('tr_me', S.me); if (REMEMBER) store.set('tr_lastName', name);
-    $('loginPin').value = '';
-    if (r.mustChange) { S.mustChange = true; store.set('mustChange', true); S._typedPw = pin; applyRole(); go('pwforce'); return; }   // first sign-in: own password first
-    document.querySelectorAll('.view').forEach(x => x.classList.toggle('on', x.id === 'v-loading'));
-    await refresh(true);
-    toast(t('welcome', { n: S.me.name }));
+    await loginDone(r, name, pin);
   } catch (e) {
     toast('❌ ' + e.message + (e.left != null && e.code === 'PIN_WRONG' ? t('left', { n: e.left }) : ''), 5000);
     go('login');
   } finally { btn.disabled = false; btn.textContent = t('loginBtn'); }
+}
+/** after a successful sign-in (password or fingerprint) */
+async function loginDone(r, name, pin) {
+  setRemember(!$('rememberMe') || $('rememberMe').checked);
+  S.token = r.token; S.me = r.me; store.set('tr_token', S.token); store.set('tr_me', S.me); if (REMEMBER) store.set('tr_lastName', name || r.me.name);
+  $('loginPin').value = '';
+  if (r.mustChange) { S.mustChange = true; store.set('mustChange', true); S._typedPw = pin || ''; applyRole(); go('pwforce'); return; }   // first sign-in: own password first
+  document.querySelectorAll('.view').forEach(x => x.classList.toggle('on', x.id === 'v-loading'));
+  await refresh(true);
+  toast(t('welcome', { n: S.me.name }));
 }
 function rememberHint() { const c = $('rememberMe'), h = $('rememberHint'); if (c && h) h.textContent = t(c.checked ? 'rememberOn' : 'rememberOff'); }
 function logout(silent) {
@@ -292,7 +296,8 @@ async function persist(list) {
     const res = await api('saveMany', { list });
     const fresh = await api('programs'); S.programs = fresh.programs; S.loadedAt = fresh.at; S.dash = null;
     store.set('tr_cache', { boot: S.boot, programs: S.programs, at: S.loadedAt });
-    toast(t('saved', { n: res.changed }));
+    const nPend = (res.pending || []).length;                         // a completion waits for the follower's / management's approval
+    toast(nPend ? t('xSentForApproval', { n: nPend }) : t('saved', { n: res.changed }), nPend ? 6000 : 2600);
     const v = document.querySelector('.view.on').id.slice(2); go(v);
   } catch (e) { toast('❌ ' + e.message, 6000); }
 }
