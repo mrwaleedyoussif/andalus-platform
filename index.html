@@ -18,15 +18,16 @@
 <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preload" href="fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=10">
+<link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
 <div id="offlineBar" class="offline" data-i18n="offline" hidden>📴 غير متصل بالإنترنت — تُعرض آخر بيانات محفوظة، ولن يُحفظ أي تعديل حتى يعود الاتصال.</div>
 <header>
-  <span class="school"><img src="icons/school-logo.png" alt="مدارس الأندلس العالمية — Andalus International Schools" width="64" height="24"></span>
+  <span class="school sa"><img src="icons/school-logo-ahliyya.png" alt="مدارس الأندلس الأهلية — Alandalus Private Schools" width="34" height="26"></span>
   <h1><span class="t-full" data-i18n="appTitle">منصة الأندلس ١٤٤٨</span><span class="t-short" data-i18n="appShort">المنصة</span></h1>
   <button class="chip lang" id="langBtn" onclick="setLang(S.lang==='en'?'ar':'en')">🌐 English</button>
   <button class="chip" id="userChip" onclick="go('me')">👤 تسجيل الدخول</button>
+  <span class="school sb"><img src="icons/school-logo.png" alt="مدارس الأندلس العالمية — Andalus International Schools" width="69" height="26"></span>
 </header>
 
 <nav id="nav" hidden>
@@ -57,7 +58,7 @@
   <!-- LOGIN -->
   <section class="view" id="v-login">
     <div class="card login">
-      <img src="icons/school-logo.png" alt="مدارس الأندلس العالمية — Andalus International Schools" class="school-hero" width="240" height="90">
+      <div class="logo-pair"><img src="icons/school-logo-ahliyya.png" alt="مدارس الأندلس الأهلية — Alandalus Private Schools" width="130" height="100"><img src="icons/school-logo.png" alt="مدارس الأندلس العالمية — Andalus International Schools" width="200" height="75"></div>
       <h2 data-i18n="loginTitle">تسجيل الدخول</h2>
       <p class="meta" data-i18n="loginIntro">اختر اسمك ثم أدخل كلمة المرور التي استلمتها من إدارة المدرسة.</p>
       <label class="f" for="loginName" data-i18n="name">الاسم</label>
@@ -77,6 +78,11 @@
 
   <!-- HOME -->
   <section class="view" id="v-home">
+    <div class="card schools">
+      <div class="sch sch-a"><img src="icons/school-logo-ahliyya.png" alt="مدارس الأندلس الأهلية — Alandalus Private Schools" width="130" height="100"><b data-i18n="schoolA">مدرسة الأندلس الأهلية الابتدائية</b></div>
+      <div class="sch-mid"><h2 data-i18n="welcomeTitle">أهلاً وسهلاً بكم في منصة الأندلس ١٤٤٨</h2><p data-i18n="welcomeMsg">المساحة الموحّدة لمتابعة مؤشرات الأداء وبرامج الخطة التشغيلية.</p></div>
+      <div class="sch sch-b"><img src="icons/school-logo.png" alt="مدارس الأندلس العالمية — Andalus International Schools" width="200" height="75"><b data-i18n="schoolB">مدرسة الأندلس العالمية (الابتدائية والمتوسطة)</b></div>
+    </div>
     <div class="hero">
       <div class="hero-txt"><h2 id="homeHello"></h2><p id="homeSub"></p></div>
       <div class="gsearch">
@@ -334,7 +340,7 @@
 <script src="i18n.js?v=11"></script>
 <script src="app.js?v=9"></script>
 <script src="plat.js?v=7"></script>
-<script src="home.js?v=2"></script>
+<script src="home.js?v=3"></script>
 <script src="stage.js?v=1"></script>
 </body>
 </html>

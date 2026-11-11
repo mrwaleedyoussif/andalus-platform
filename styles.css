@@ -341,3 +341,30 @@ body:has(#v-login.on),body:has(#v-pwforce.on){background:radial-gradient(1100px 
 select:disabled{background:#f3f5fa;color:var(--muted);cursor:not-allowed}
 @media (max-width:560px){.stagebar select{flex:1 1 auto;min-width:0}.stagebar .sb-note{width:100%}}
 @media print{.stagebar{box-shadow:none}.stagebar select{border:0;padding:0;appearance:none;-webkit-appearance:none}}
+/* ---- the two schools: a logo on each side */
+header .school.sb{order:9}
+header .school img{height:26px}
+header .school.sa img{height:28px}
+#userChip{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.logo-pair{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:4px 6px 14px}
+.logo-pair img{height:auto;max-height:96px;width:auto;max-width:46%;object-fit:contain}
+.schools{display:grid;grid-template-columns:1fr 1.5fr 1fr;align-items:center;gap:16px;padding:18px 20px;margin-bottom:14px;background:linear-gradient(180deg,#fff,#fbfcff)}
+.sch{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px}
+.sch img{height:86px;width:auto;max-width:100%;object-fit:contain}
+.sch b{font-size:13.5px;color:var(--navy);line-height:1.5}
+.sch-mid{text-align:center;padding:0 6px;border-inline:1px solid var(--line)}
+.sch-mid h2{margin:0 0 6px;font-size:19px;color:var(--navy);font-weight:700}
+.sch-mid p{margin:0;font-size:14px;color:var(--muted);line-height:1.8}
+@media (max-width:700px){
+  .schools{grid-template-columns:1fr 1fr;gap:12px 10px;padding:14px}
+  .sch-mid{grid-column:1/-1;grid-row:2;border-inline:0;border-top:1px solid var(--line);padding-top:10px}
+  .sch img{height:64px}.sch b{font-size:12.5px}
+  .sch-mid h2{font-size:17px}.sch-mid p{font-size:13px}
+  header .school img{height:22px}header .school.sa img{height:24px}
+  header .school{padding:3px 6px}
+  #userChip{max-width:110px}
+}
+@media (max-width:380px){ #userChip{max-width:84px} header .school.sb img{height:18px} }
+@media print{ .schools{box-shadow:none} }
+.sch-a img{height:104px}.sch-b img{height:76px}
+@media (max-width:700px){.sch-a img{height:80px}.sch-b img{height:56px}}

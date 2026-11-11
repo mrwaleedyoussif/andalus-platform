@@ -41,6 +41,16 @@ Object.assign(I18N.en, {
   xId: 'ID', xStage: 'Stage', xCode: 'Indicator code', xInd: 'Indicator', xProg: 'Program', xExec: 'Implementer', xFollow: 'Follower', xStart: 'Start', xEnd: 'End', xStatus: 'Status', xPct: 'Progress %', xAlert: 'Alert', xEvid: 'Evidence', xNotes: 'Notes',
   printedOn: 'Printed on {d}'
 });
+Object.assign(I18N.ar, {
+  schoolA: 'مدرسة الأندلس الأهلية الابتدائية', schoolB: 'مدرسة الأندلس العالمية (الابتدائية والمتوسطة)',
+  welcomeTitle: 'أهلاً وسهلاً بكم في منصة الأندلس ١٤٤٨',
+  welcomeMsg: 'المساحة الموحّدة لمتابعة مؤشرات الأداء وبرامج الخطة التشغيلية للعام الدراسي 2026 / 2027، نعمل فيها معاً بروح الفريق الواحد نحو التميّز والريادة.'
+});
+Object.assign(I18N.en, {
+  schoolA: 'Al-Andalus Private Elementary School', schoolB: 'Al-Andalus International School (Elementary & Intermediate)',
+  welcomeTitle: 'Welcome to Andalus Platform 1448',
+  welcomeMsg: 'One shared place to follow our performance indicators and operational-plan programs for the 2026/2027 school year — working together as one team towards excellence.'
+});
 Object.assign(I18N.ar.err, { MUST_CHANGE_PW: 'اختر كلمة مرور جديدة أولاً', PIN_SAME: 'كلمة المرور الجديدة يجب أن تختلف عن الحالية' });
 Object.assign(I18N.en.err, { MUST_CHANGE_PW: 'Please choose a new password first', PIN_SAME: 'The new password must be different from the current one' });
 
