@@ -43,7 +43,7 @@ async function renderInd() {
   if (!P.model) box.innerHTML = `<div class="card mini">${t('loading')}</div>`;
   let m; try { m = await loadModel(); } catch (e) { box.innerHTML = `<div class="card">❌ ${esc(e.message)}</div>`; return; }
   const chips = $('indStage');
-  if (chips) chips.innerHTML = [''].concat(m.stages).map(s => `<button class="stc${P.indStage === s ? ' on' : ''}" onclick="P.indStage=${esc(JSON.stringify(s))};renderInd()" title="${esc(s ? tStage(s) : t('allStages'))}"><span class="pi">${stIcon(s)}</span><span>${esc(s ? stShort(s) : t('allStages'))}</span></button>`).join('');
+  if (chips) chips.innerHTML = [''].concat(m.stages).map(s => `<button class="stc${P.indStage === s ? ' on' : ''}" onclick="pickIndStage(${esc(JSON.stringify(s))})" title="${esc(s ? tStage(s) : t('allStages'))}"><span class="pi">${stIcon(s)}</span><span>${esc(s ? stShort(s) : t('allStages'))}</span></button>`).join('');
   const st = P.indStage, q = nkey(($('indQ') || {}).value || '');
   const list = m.indicators.filter(i => !q || nkey(i.code + ' ' + i.name).indexOf(q) >= 0);
   $('indCount').textContent = t('indCount', { n: list.length });
@@ -116,7 +116,7 @@ function platTiles() {
   const box = $('platTiles'); if (!box || !P.tabs) return;
   const ind = P.tabs.filter(x => x.ind).sort((a, b) => sheetParts(a.title).code.localeCompare(sheetParts(b.title).code)), gen = P.tabs.filter(x => !x.ind);
   const tile = x => { const sp = sheetParts(x.title);
-    return `<button class="ptile${x.gid === P.gid ? ' on' : ''}" data-g="${x.gid}" onclick="platLoad(${x.gid},1,0)" title="${esc(x.title)}"><span class="pi">${sheetIcon(x.title)}</span><span class="pn">${esc(sp.name)}</span>${sp.code ? `<span class="pc">${sp.code}</span>` : ''}</button>`; };
+    return `<button class="ptile${x.gid === P.gid ? ' on' : ''}" data-g="${x.gid}" onclick="platOpenTab(${x.gid})" title="${esc(x.title)}"><span class="pi">${sheetIcon(x.title)}</span><span class="pn">${esc(sp.name)}</span>${sp.code ? `<span class="pc">${sp.code}</span>` : ''}</button>`; };
   const home = P.gid == null;
   document.getElementById('v-plat').classList.toggle('sheet-open', !home);
   box.innerHTML = home
@@ -140,7 +140,7 @@ async function platSecs() {
     const loc = (i.locs || []).find(l => l.gid === gid), seen = {}, items = [];
     if (loc) items.push(sec('🎯', i.code, loc.row, t('secInd') + ': ' + tInd(i.code, i.name)));
     else items.push(`<span class="tag">${esc(i.code)}</span>`);
-    i.blocks.filter(b => b.gid === gid).sort((a, b) => a.row - b.row).forEach(b => {
+    i.blocks.filter(b => b.gid === gid && stageOkBlock(b.label)).sort((a, b) => a.row - b.row).forEach(b => {
       if (seen[b.label]) return; seen[b.label] = 1;
       items.push(`<span class="psec-pair">${sec(stIcon(b.label), stShort(b.label), b.row, tStage(b.label))}${b.plan ? sec('🗂', '', b.plan, t('secPlan') + ' — ' + tStage(b.label), 'ic') : ''}</span>`);
     });

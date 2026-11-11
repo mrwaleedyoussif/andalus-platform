@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preload" href="fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=9">
+<link rel="stylesheet" href="styles.css?v=10">
 </head>
 <body>
 <div id="offlineBar" class="offline" data-i18n="offline" hidden>📴 غير متصل بالإنترنت — تُعرض آخر بيانات محفوظة، ولن يُحفظ أي تعديل حتى يعود الاتصال.</div>
@@ -43,6 +43,12 @@
 <div id="roBar" class="robar" hidden></div>
 
 <main>
+  <!-- one stage for the whole app -->
+  <div id="stageBar" class="stagebar" hidden>
+    <label for="stageSel" class="sb-l"><span class="ico">🏫</span><span data-i18n="stageLbl">المرحلة</span></label>
+    <select id="stageSel" onchange="setStage(this.value)"></select>
+    <span id="stageNote" class="sb-note"></span>
+  </div>
   <!-- LOADING -->
   <section class="view on" id="v-loading">
     <div class="center"><div class="spin big"></div><p class="meta" data-i18n="loading">جارٍ التحميل…</p></div>
@@ -327,7 +333,8 @@
 <script src="config.js?v=7"></script>
 <script src="i18n.js?v=11"></script>
 <script src="app.js?v=9"></script>
-<script src="plat.js?v=6"></script>
-<script src="home.js?v=1"></script>
+<script src="plat.js?v=7"></script>
+<script src="home.js?v=2"></script>
+<script src="stage.js?v=1"></script>
 </body>
 </html>

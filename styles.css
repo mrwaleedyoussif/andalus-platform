@@ -331,3 +331,13 @@ body:has(#v-login.on),body:has(#v-pwforce.on){background:radial-gradient(1100px 
   .sheet-wrap{max-height:none;overflow:visible}
   body::after{content:attr(data-printed);display:block;font-size:10px;color:#666;margin-top:12px}
 }
+/* ---- one stage selector for the whole app */
+.stagebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px 12px;margin-bottom:12px;box-shadow:var(--sh)}
+.stagebar .sb-l{display:inline-flex;align-items:center;gap:2px;font-weight:700;color:var(--navy);font-size:14px;margin:0}
+.stagebar select{width:auto;min-width:190px;flex:0 1 260px;min-height:40px;font-weight:600}
+.stagebar .sb-note{font-size:12px;font-weight:600;color:var(--teal)}
+.stagebar.filtered{border-color:#9fd6cf;background:linear-gradient(180deg,#f1fbf9,#fff)}
+.stagebar.filtered select{border-color:var(--teal)}
+select:disabled{background:#f3f5fa;color:var(--muted);cursor:not-allowed}
+@media (max-width:560px){.stagebar select{flex:1 1 auto;min-width:0}.stagebar .sb-note{width:100%}}
+@media print{.stagebar{box-shadow:none}.stagebar select{border:0;padding:0;appearance:none;-webkit-appearance:none}}
