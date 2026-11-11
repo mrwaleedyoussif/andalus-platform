@@ -1,0 +1,25 @@
+{
+  "id": "/andalus-platform/",
+  "name": "منصة الأندلس ١٤٤٨",
+  "short_name": "المنصة",
+  "description": "المنصة الشاملة ومتابعة برامجها — ابتدائي بنين (أهلي/عالمي) ومتوسط بنين (عالمي) — مدارس الأندلس العالمية",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#2E2F75",
+  "theme_color": "#2E2F75",
+  "categories": ["productivity", "education"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "برامجي", "url": "./?v=mine", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "لوحة المتابعة", "url": "./?v=dash", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
