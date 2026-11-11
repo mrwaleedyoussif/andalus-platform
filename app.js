@@ -47,7 +47,9 @@ const owns = (name, presp, iresp) => { const n = nkey(name); if (!n) return fals
 /* the two roles on a program: المنفّذ = مسؤول التنفيذ (المكلف) · المتابع = مسؤول المؤشر */
 const isExec = (name, p) => owns(name, p.presp || p.iresp, '');
 const isFollow = (name, p) => { const n = nkey(name); return !!n && nkey(p.iresp) === n; };
-const store = { get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }, del(k) { try { localStorage.removeItem(k); } catch (e) {} } };
+// keys are namespaced: this app shares the github.io origin with «متتبع برامج المؤشرات», whose session must never leak in here
+const NS = 'andalusPlat1448:';
+const store = { get(k, d) { try { const v = localStorage.getItem(NS + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(NS + k, JSON.stringify(v)); } catch (e) {} }, del(k) { try { localStorage.removeItem(NS + k); } catch (e) {} } };
 
 // ------------------------------------------------------------ API
 async function api(action, payload = {}, { timeout = 60000 } = {}) {
