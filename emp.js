@@ -69,7 +69,7 @@ function renderEmpAll() {
       <div class="row between"><b>${esc(t('empCount', { n: withP.length }))}</b><span class="mini">${without ? esc(t('empNoProgs', { n: without })) : ''}</span></div>
       <div class="chips" style="margin-top:8px">${sortBtns}</div></div>
     <div class="emp-list">${withP.map(r => `<button class="emp-row" onclick="empOpen(${r.p.row})">
-        <span class="avatar">${esc(initials(r.p.name))}</span>
+        ${avatar(r.p.name)}
         <span class="er-main"><b>${esc(r.p.name)}</b><small>${esc(tRole(r.p.role || ''))}${r.p.stage ? ' · ' + esc(tStage(r.p.stage)) : ''}</small></span>
         <span class="er-nums"><span title="${esc(t('kProgs'))}">📋 ${r.n}</span><span class="ok" title="${esc(t('kDone'))}">✅ ${r.done}</span><span class="${r.late ? 'late' : ''}" title="${esc(t('kLate'))}">⛔ ${r.late}</span></span>
         <span class="er-bar">${pctBar(r.avg)}<small>${r.avg}%</small></span></button>`).join('')}</div>`;
@@ -80,7 +80,7 @@ function renderEmpOne(p) {
   const s = empStats(p.name);
   const kpi = (icon, label, v, cls) => `<div class="kpi ${cls || ''}"><span class="kic">${ic(icon)}</span><b>${v}</b><span>${esc(label)}</span></div>`;
   const head = `<div class="card emp-head">
-      <div class="eh-top"><span class="avatar big">${esc(initials(p.name))}</span>
+      <div class="eh-top">${avatar(p.name, 'big')}
         <div class="grow"><h2>${esc(p.name)}</h2><div class="mini">${esc(tRole(p.role || ''))}${p.stage ? ' · ' + esc(tStage(p.stage)) : ''} · ${esc(t('kRoles', { e: s.exec, f: s.fol }))}</div></div>
         <div class="eh-ring" style="--v:${s.avg}"><b>${s.avg}%</b><small>${esc(t('kAvg'))}</small></div></div>
       <div class="kpis emp-kpis">${kpi('layers', t('kProgs'), s.n)}${kpi('circle-check', t('kDone'), s.done, 'ok')}${kpi('play', t('kRun'), s.run, 'run')}${kpi('octagon-x', t('kLate'), s.late, 'late')}${kpi('paperclip', t('kEvid'), s.evid)}</div>

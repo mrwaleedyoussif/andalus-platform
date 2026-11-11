@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preload" href="fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=14">
+<link rel="stylesheet" href="styles.css?v=15">
 </head>
 <body>
 <div id="offlineBar" class="offline" data-i18n="offline" hidden>📴 غير متصل بالإنترنت — تُعرض آخر بيانات محفوظة، ولن يُحفظ أي تعديل حتى يعود الاتصال.</div>
@@ -295,6 +295,20 @@
 
   <!-- ME -->
   <section class="view" id="v-me">
+    <div class="card photo-card">
+      <div class="pc-row">
+        <div id="mePhoto"></div>
+        <div class="grow">
+          <h3 data-i18n="photoTitle" style="margin:0 0 4px">👤 صورتي</h3>
+          <p class="mini" data-i18n="photoHint" style="margin:0 0 10px">تظهر صورتك لزملائك داخل التطبيق فقط.</p>
+          <div class="row" style="gap:6px">
+            <label class="btn p sm" for="photoFile"><span id="photoUpTxt">📤 رفع صورة</span></label>
+            <button class="btn sm" id="photoDelBtn" onclick="delPhoto()" data-i18n="photoDel" hidden>حذف الصورة</button>
+          </div>
+        </div>
+      </div>
+      <input type="file" id="photoFile" accept="image/*" hidden onchange="pickPhoto(this)">
+    </div>
     <div class="card">
       <h3 id="meName">—</h3>
       <p class="meta" id="meRole"></p>
@@ -348,10 +362,11 @@
 <script src="icons.js?v=1"></script>
 <script src="config.js?v=7"></script>
 <script src="i18n.js?v=11"></script>
-<script src="app.js?v=10"></script>
+<script src="app.js?v=11"></script>
 <script src="plat.js?v=7"></script>
 <script src="home.js?v=5"></script>
 <script src="stage.js?v=2"></script>
-<script src="emp.js?v=1"></script>
+<script src="emp.js?v=2"></script>
+<script src="photo.js?v=1"></script>
 </body>
 </html>
