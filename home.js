@@ -65,7 +65,7 @@ go = function (v) {
 };
 const TILES = [
   ['ind', 'target', 'tInd', 'tIndD'], ['mine', 'clipboard-list', 'tMine', 'tMineD'], ['quick', 'zap', 'tQuick', 'tQuickD'], ['all', 'search', 'tAll', 'tAllD'],
-  ['dash', 'chart-column', 'tDash', 'tDashD'], ['plat', 'table-2', 'tPlat', 'tPlatD'], ['people', 'users', 'tPeople', 'tPeopleD', 1], ['send', 'send', 'tSend', 'tSendD', 1], ['me', 'user-round', 'tMe', 'tMeD']
+  ['dash', 'chart-column', 'tDash', 'tDashD'], ['emp', 'user-check', 'tEmp', 'tEmpD', 1], ['plat', 'table-2', 'tPlat', 'tPlatD'], ['people', 'users', 'tPeople', 'tPeopleD', 1], ['send', 'send', 'tSend', 'tSendD', 1], ['me', 'user-round', 'tMe', 'tMeD']
 ];
 function renderHome() {
   if (!S.me || !S.boot) return;
@@ -174,7 +174,7 @@ function currentAllList() {
   return list;
 }
 async function exportXlsx(which) {
-  const list = which === 'mine' ? applyFilter(mineSet(), S.filter) : currentAllList();
+  const list = Array.isArray(which) ? which : which === 'mine' ? applyFilter(mineSet(), S.filter) : currentAllList();
   toast(t('exporting'), 20000);
   try {
     await loadXlsx();

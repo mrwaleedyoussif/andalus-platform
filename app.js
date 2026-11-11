@@ -380,7 +380,7 @@ function renderPeople() {
       <div><input type="tel" id="pp-${i}" value="${esc(p.phone || '')}" placeholder="9665xxxxxxxx"></div>
       <label class="mini"><input type="checkbox" id="pm-${i}" ${p.emailOn ? 'checked' : ''}> ${t('email')}</label>
       <label class="mini"><input type="checkbox" id="pw-${i}" ${p.waOn ? 'checked' : ''}> ${t('wa')}</label>
-      <div class="row" style="gap:4px">${isCtrl() ? (p.ctrl ? `<span class="ebadge always" title="${t('alwaysEdits')}">✏️</span>` : `<button class="btn sm ebtn ${p.editOn === false ? 'off' : 'on'}" onclick="toggleEdit(${i})" title="${t(p.editOn === false ? 'editOffTitle' : 'editOnTitle')}">${p.editOn === false ? '🚫' : '✏️'}</button>`) : ''}<button class="btn sm p" onclick="savePerson(${i})" title="${t('savedOk')}">💾</button><button class="btn sm" onclick="adminPin(${i})" title="${t('setPwTitle')}">🔑</button><button class="btn sm" onclick="sendToPerson(${i})" title="${t('sendToPerson')}">📤</button></div>
+      <div class="row" style="gap:4px"><button class="btn sm" onclick="empOpen(${p.row},true)" title="${t('openEmp')}">📊</button>${isCtrl() ? (p.ctrl ? `<span class="ebadge always" title="${t('alwaysEdits')}">✏️</span>` : `<button class="btn sm ebtn ${p.editOn === false ? 'off' : 'on'}" onclick="toggleEdit(${i})" title="${t(p.editOn === false ? 'editOffTitle' : 'editOnTitle')}">${p.editOn === false ? '🚫' : '✏️'}</button>`) : ''}<button class="btn sm p" onclick="savePerson(${i})" title="${t('savedOk')}">💾</button><button class="btn sm" onclick="adminPin(${i})" title="${t('setPwTitle')}">🔑</button><button class="btn sm" onclick="sendToPerson(${i})" title="${t('sendToPerson')}">📤</button></div>
     </div>`).join('');
 }
 async function savePerson(i) {

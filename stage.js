@@ -7,7 +7,7 @@
 Object.assign(I18N.ar, { stageLbl: 'المرحلة', stageAll: 'الكل', stageOnly: 'المعروض الآن: {s} فقط', stageLocked: 'المرحلة محددة من قائمة «المرحلة» أعلى الصفحة' });
 Object.assign(I18N.en, { stageLbl: 'Stage', stageAll: 'All', stageOnly: 'Showing {s} only', stageLocked: 'The stage is set by the “Stage” list at the top of the page' });
 
-const STAGE_VIEWS = ['home', 'ind', 'mine', 'quick', 'all', 'dash', 'plat'];
+const STAGE_VIEWS = ['home', 'ind', 'mine', 'quick', 'all', 'dash', 'plat', 'emp'];
 S.stage = store.get('stage', '');                     // a program stage label, e.g. «ابتدائي بنين (أهلي)»; '' = all stages
 S.stageActive = true;
 const inStage = p => !S.stage || stNorm(p.stage) === stNorm(S.stage);

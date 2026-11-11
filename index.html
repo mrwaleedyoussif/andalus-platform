@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preload" href="fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=13">
+<link rel="stylesheet" href="styles.css?v=14">
 </head>
 <body>
 <div id="offlineBar" class="offline" data-i18n="offline" hidden>📴 غير متصل بالإنترنت — تُعرض آخر بيانات محفوظة، ولن يُحفظ أي تعديل حتى يعود الاتصال.</div>
@@ -38,6 +38,7 @@
   <button data-v="all" class="nav-more" onclick="go('all')"><span class="ic">🔎</span><span data-i18n="navAll">كل البرامج</span></button>
   <button data-v="dash" class="nav-more" onclick="go('dash')"><span class="ic">📊</span><span data-i18n="navDash">المتابعة</span></button>
   <button data-v="plat" onclick="go('plat')"><span class="ic">📑</span><span data-i18n="navPlat">المنصة</span></button>
+  <button data-v="emp" class="nav-more" onclick="go('emp')" data-admin><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-user-check"></use></svg></span><span data-i18n="navEmp">الموظفون</span></button>
   <button data-v="people" class="nav-more" onclick="go('people')" data-admin><span class="ic">👥</span><span data-i18n="navPeople">جهات الاتصال</span></button>
   <button data-v="send" class="nav-more" onclick="go('send')" data-admin><span class="ic">📤</span><span data-i18n="navSend">الإرسال</span></button>
 </nav>
@@ -94,6 +95,15 @@
     <div id="homeStats" class="hstats"></div>
     <div id="guide" class="card guide" hidden></div>
     <div id="homeTiles" class="htiles"></div>
+  </section>
+
+  <!-- STAFF TRACKER: one employee's programs / indicators, or everyone ranked -->
+  <section class="view" id="v-emp">
+    <div class="card">
+      <h3><svg class="i" aria-hidden="true"><use href="#i-user-check"></use></svg> <span data-i18n="empTitle">متابعة الموظفين</span></h3>
+      <select id="empSel" onchange="empOpen(this.value)" aria-label="الموظف"></select>
+    </div>
+    <div id="empBody"></div>
   </section>
 
   <!-- FIRST SIGN-IN: choose your own password -->
@@ -338,9 +348,10 @@
 <script src="icons.js?v=1"></script>
 <script src="config.js?v=7"></script>
 <script src="i18n.js?v=11"></script>
-<script src="app.js?v=9"></script>
+<script src="app.js?v=10"></script>
 <script src="plat.js?v=7"></script>
-<script src="home.js?v=4"></script>
-<script src="stage.js?v=1"></script>
+<script src="home.js?v=5"></script>
+<script src="stage.js?v=2"></script>
+<script src="emp.js?v=1"></script>
 </body>
 </html>
