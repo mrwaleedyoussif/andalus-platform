@@ -1,7 +1,7 @@
 /* Service worker — caches the app shell so it opens instantly and works offline (read-only).
    API calls (script.google.com) are never cached. Bump CACHE on every release. */
-const CACHE = 'andalus-platform-v4';
-const SHELL = ['./', './index.html', './styles.css?v=7', './app.js?v=7', './plat.js?v=4', './i18n.js?v=9', './config.js?v=6', './manifest.webmanifest',
+const CACHE = 'andalus-platform-v5';
+const SHELL = ['./', './index.html', './styles.css?v=8', './app.js?v=8', './plat.js?v=5', './i18n.js?v=10', './config.js?v=6', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-192.png', './icons/maskable-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png', './icons/favicon-64.png', './icons/school-logo.png'];
 
 self.addEventListener('install', e => {

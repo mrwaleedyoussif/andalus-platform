@@ -154,7 +154,7 @@ applyI18n = function () { _applyI18n(); document.querySelectorAll('[data-i18n-ti
 function drawSheet() {
   const s = P.sheet, grid = $('platGrid'), cov = {}, span = {};
   s.merges.forEach(m => { span[m[0] + ':' + m[1]] = m; for (let r = m[0]; r < m[0] + m[2]; r++) for (let c = m[1]; c < m[1] + m[3]; c++) if (r !== m[0] || c !== m[1]) cov[r + ':' + c] = 1; });
-  const hidden = new Set(s.hiddenR || []), cols = s.colW.length || s.cols, admin = isAdmin();
+  const hidden = new Set(s.hiddenR || []), cols = s.colW.length || s.cols, admin = isAdmin() && editOK();
   const ws = s.colW.map(w => w ? Math.max(28, Math.round(w * 0.85)) : 0), tw = 42 + ws.reduce((a, b) => a + b, 0);
   const colg = '<col style="width:42px">' + ws.map(w => `<col style="width:${w}px">`).join('');
   let html = '';

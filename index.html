@@ -15,7 +15,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
 <div id="offlineBar" class="offline" data-i18n="offline" hidden>📴 غير متصل بالإنترنت — تُعرض آخر بيانات محفوظة، ولن يُحفظ أي تعديل حتى يعود الاتصال.</div>
@@ -36,6 +36,7 @@
   <button data-v="people" onclick="go('people')" data-admin><span class="ic">👥</span><span data-i18n="navPeople">جهات الاتصال</span></button>
   <button data-v="send" onclick="go('send')" data-admin><span class="ic">📤</span><span data-i18n="navSend">الإرسال</span></button>
 </nav>
+<div id="roBar" class="robar" hidden></div>
 
 <main>
   <!-- LOADING -->
@@ -90,7 +91,7 @@
       <button class="btn p" onclick="saveQuick()" data-i18n="saveAll">💾 حفظ الكل</button>
       <button class="btn" onclick="renderQuick()" data-i18n="discard">إلغاء التعديلات</button>
     </div>
-    <details class="card" style="margin-top:14px"><summary data-i18n="addProgTitle">➕ إضافة برنامج جديد (غير موجود في المنصة)</summary>
+    <details class="card" id="addProgBox" style="margin-top:14px"><summary data-i18n="addProgTitle">➕ إضافة برنامج جديد (غير موجود في المنصة)</summary>
       <div class="grid2" style="margin-top:10px">
         <div><label class="f" data-i18n="stage">المرحلة</label><select id="nStage" onchange="fillNInd()"></select></div>
         <div><label class="f" data-i18n="indicator">المؤشر</label><select id="nInd"></select></div>
@@ -212,6 +213,7 @@
 
   <!-- PEOPLE (admin) -->
   <section class="view" id="v-people">
+    <div id="editCtrl" class="card editctrl" hidden></div>
     <div class="notice" data-i18n="peopleNotice">عبّئ البريد الإلكتروني ورقم الواتساب.</div>
     <p class="mini" id="peopleCount"></p>
     <div id="peopleList" class="list"></div>
@@ -275,8 +277,8 @@
 <div class="updatebar" id="updateBar" hidden><span data-i18n="updateBar">تحديث جديد للتطبيق متاح</span> <button class="btn sm" onclick="location.reload()" data-i18n="updateNow">تحديث الآن</button></div>
 
 <script src="config.js?v=6"></script>
-<script src="i18n.js?v=9"></script>
-<script src="app.js?v=7"></script>
-<script src="plat.js?v=4"></script>
+<script src="i18n.js?v=10"></script>
+<script src="app.js?v=8"></script>
+<script src="plat.js?v=5"></script>
 </body>
 </html>

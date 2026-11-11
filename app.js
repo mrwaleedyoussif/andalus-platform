@@ -40,6 +40,9 @@ const fmtD = iso => { if (!iso) return '—'; const [y, m, d] = iso.split('-'); 
 const todayISO = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
 const isAdmin = () => !!(S.me && S.me.appRole === 'مدير');
 const isOwner = () => !!(S.me && S.me.owner);
+// editing control (owner / principal / academic VP): master lock for all staff + per-person switch — the server enforces it too
+const editOK = () => !(S.boot && S.boot.edit && S.boot.edit.can === false);
+const isCtrl = () => !!(S.boot && S.boot.edit && S.boot.edit.ctrl);
 const myName = () => (S.me && S.me.name) || '';
 const nkey = s => String(s || '').replace(/\s+/g, ' ').trim().toLowerCase().replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/[ًٌٍَُِّْ]/g, '');
 /* same rule as owns_() in the sheet: exact مسؤول البرنامج / مسؤول المؤشر, or my name inside a multi-person «المكلف» cell */
@@ -66,6 +69,7 @@ async function api(action, payload = {}, { timeout = 60000 } = {}) {
     const code = String(j.error || '');
     if (code === 'AUTH' || code === 'AUTH_EXPIRED') { logout(true); }
     const base = code.split(':')[0];
+    if ((base === 'EDIT_LOCKED' || base === 'EDIT_OFF') && S.boot) { S.boot.edit = Object.assign({}, S.boot.edit, { can: false, locked: base === 'EDIT_LOCKED' || (S.boot.edit || {}).locked, mineOn: base === 'EDIT_OFF' ? false : (S.boot.edit || {}).mineOn }); setTimeout(() => { applyEditState(); const v = document.querySelector('.view.on'); if (v) go(v.id.slice(2)); }, 0); }
     const err = new Error(errText(base)); err.code = base; err.left = j.left; throw err;
   }
   return j;
@@ -87,6 +91,40 @@ function applyRole() {
   if (S.boot && S.boot.standalone) document.querySelectorAll('[data-sheet-only]').forEach(el => { el.hidden = true; });
   $('nav').hidden = !S.me;
   $('userChip').textContent = S.me ? ('👤 ' + S.me.name + (adm ? ' · ' + t('adminTag') : '')) : t('signIn');
+  applyEditState();
+}
+/** read-only banner + hide the "add program" form when editing is off for this user */
+function applyEditState() {
+  const bar = $('roBar'), e = (S.boot && S.boot.edit) || null, ok = editOK();
+  document.body.classList.toggle('view-only', !!S.me && !ok);
+  const add = $('addProgBox'); if (add) add.hidden = !ok;
+  if (!bar) return;
+  if (!S.me || !e) { bar.hidden = true; return; }
+  if (!ok) { bar.className = 'robar'; bar.innerHTML = esc(t(e.locked ? 'roLocked' : 'roOff')); bar.hidden = false; }
+  else if (e.ctrl && e.locked) { bar.className = 'robar ctrl'; bar.innerHTML = `${esc(t('ctrlLockedNote'))} <button class="btn sm" onclick="setEditLock(false)">${t('btnOpen')}</button>`; bar.hidden = false; }
+  else bar.hidden = true;
+}
+async function setEditLock(locked) {
+  if (!isCtrl()) return;
+  if (!confirm(t(locked ? 'confirmLock' : 'confirmOpen'))) return;
+  try { const r = await api('setEditLock', { locked }); S.boot.edit = r.edit; applyEditState(); if ($('v-people').classList.contains('on')) renderPeople(); toast(t(locked ? 'editLockedNow' : 'editOpenedNow')); }
+  catch (e) { toast('❌ ' + e.message, 6000); }
+}
+async function toggleEdit(i) {
+  const p = S.boot.people[i]; if (!p || p.ctrl || !isCtrl()) return;
+  const on = p.editOn === false;
+  try { await api('setEditOn', { row: p.row, on }); p.editOn = on; renderPeople(); toast(t(on ? 'editPersonOn' : 'editPersonOff', { n: p.name || tRole(p.role) })); }
+  catch (e) { toast('❌ ' + e.message, 6000); }
+}
+function renderEditCtrl() {
+  const box = $('editCtrl'); if (!box) return;
+  if (!isCtrl()) { box.hidden = true; box.innerHTML = ''; return; }
+  const e = S.boot.edit, off = S.boot.people.filter(p => !p.ctrl && p.editOn === false).length;
+  box.hidden = false;
+  box.innerHTML = `<div class="ec-head"><span class="ec-ic">${e.locked ? '🔒' : '🔓'}</span><div class="grow"><b>${t('editCtrlTitle')}</b>
+      <div class="ec-state ${e.locked ? 'locked' : 'open'}">${t(e.locked ? 'editClosedLbl' : 'editOpenLbl')}</div></div>
+      <button class="btn ${e.locked ? 'p' : 'danger'}" onclick="setEditLock(${!e.locked})">${t(e.locked ? 'btnOpen' : 'btnLock')}</button></div>
+    <p class="mini" style="margin:8px 0 0">${t('editCtrlHint')}${off ? ' · ' + t('editOffCount', { n: off }) : ''}</p>`;
 }
 
 // ------------------------------------------------------------ boot
@@ -159,7 +197,7 @@ function logout(silent) {
 }
 
 // ------------------------------------------------------------ cards
-function canEdit(p) { return isAdmin() || owns(myName(), p.presp, p.iresp); }
+function canEdit(p) { return editOK() && (isAdmin() || owns(myName(), p.presp, p.iresp)); }
 function alertClass(a) { if (!a) return ''; if (a.startsWith('⛔')) return 'late'; if (/^(⏰|🚀|🏁|🔔)/.test(a)) return 'soon'; if (a.startsWith('⚠')) return 'nodate'; return ''; }
 function myRoleBadge(p) {
   const e = isExec(myName(), p), f = isFollow(myName(), p);
@@ -267,7 +305,7 @@ function renderMine() {
 
 // ------------------------------------------------------------ quick
 function indsFor(stage) { return S.boot.indicators.filter(i => i.stage === stage); }
-function quickPool() { return isAdmin() ? S.programs : S.programs.filter(canEdit); }
+function quickPool() { return isAdmin() ? S.programs : S.programs.filter(p => owns(myName(), p.presp, p.iresp)); }   // shown read-only when editing is off
 function fillQInd(render = true) {
   const st = $('qStage').value, pool = quickPool();
   const inds = indsFor(st).map(i => ({ ...i, n: pool.filter(p => p.stage === st && p.icode === i.code).length })).filter(i => isAdmin() || i.n);
@@ -279,13 +317,13 @@ function fillNInd() { const st = $('nStage').value; $('nInd').innerHTML = indsFo
 function renderQuick() {
   const st = $('qStage').value, code = $('qInd').value; S.dirty = {};
   const list = quickPool().filter(p => p.stage === st && p.icode === code);
-  $('quickActions').hidden = !list.length;
+  $('quickActions').hidden = !list.length || !editOK(); const dis = editOK() ? '' : ' disabled';
   const il = $('qIndLink'), ip = list.find(hasPlat); if (il) { il.hidden = !ip; if (ip) { il.href = platUrl(ip, 'ind'); il.textContent = t('openIndPlat') + ' ↗'; } }
   $('quickList').innerHTML = list.length ? list.map(p => `<div class="qrow">
       <div class="pn"><b>${plink(p, 'prog', esc(p.program))}</b><div class="mini">${esc(p.id)} · ${esc(p.presp || p.iresp || '')} · <span class="alert ${alertClass(p.alert)}">${esc(tAlert(p.alert))}</span></div></div>
-      <div><label class="f">${t('start')}</label><input type="date" value="${p.start}" onchange="mark('${esc(p.id)}','start',this.value)"></div>
-      <div><label class="f">${t('end')}</label><input type="date" value="${p.end}" onchange="mark('${esc(p.id)}','end',this.value)"></div>
-      <div><label class="f">${t('status')}</label><select onchange="mark('${esc(p.id)}','status',this.value)">${S.boot.statuses.map(s => `<option value="${esc(s)}" ${s === p.status ? 'selected' : ''}>${esc(tStatus(s))}</option>`).join('')}</select></div>
+      <div><label class="f">${t('start')}</label><input type="date" value="${p.start}"${dis} onchange="mark('${esc(p.id)}','start',this.value)"></div>
+      <div><label class="f">${t('end')}</label><input type="date" value="${p.end}"${dis} onchange="mark('${esc(p.id)}','end',this.value)"></div>
+      <div><label class="f">${t('status')}</label><select${dis} onchange="mark('${esc(p.id)}','status',this.value)">${S.boot.statuses.map(s => `<option value="${esc(s)}" ${s === p.status ? 'selected' : ''}>${esc(tStatus(s))}</option>`).join('')}</select></div>
     </div>`).join('') : `<div class="empty">${t('noProgInd')}</div>`;
 }
 function mark(id, k, v) { S.dirty[id] = S.dirty[id] || { id }; S.dirty[id][k] = v; }
@@ -330,6 +368,7 @@ async function sendTest() { toast(t('sending'), 15000); try { const r = await ap
 
 // ------------------------------------------------------------ people (admin)
 function renderPeople() {
+  renderEditCtrl();
   const ppl = S.boot.people; const withMail = ppl.filter(p => p.email).length;
   $('peopleCount').textContent = t('peopleCount', { m: withMail, t: ppl.length, w: ppl.filter(p => p.phone).length, p: ppl.filter(p => p.hasPin).length });
   $('peopleList').innerHTML = ppl.map((p, i) => `<div class="prow" style="${['مدير المدرسة', 'وكيل الشؤون الأكاديمية', 'المشرف الأكاديمي', 'المالك والمطوّر'].includes(p.role) ? 'border-color:#f1d98a;background:#fffdf3' : ''}">
@@ -339,7 +378,7 @@ function renderPeople() {
       <div><input type="tel" id="pp-${i}" value="${esc(p.phone || '')}" placeholder="9665xxxxxxxx"></div>
       <label class="mini"><input type="checkbox" id="pm-${i}" ${p.emailOn ? 'checked' : ''}> ${t('email')}</label>
       <label class="mini"><input type="checkbox" id="pw-${i}" ${p.waOn ? 'checked' : ''}> ${t('wa')}</label>
-      <div class="row" style="gap:4px"><button class="btn sm p" onclick="savePerson(${i})" title="${t('savedOk')}">💾</button><button class="btn sm" onclick="adminPin(${i})" title="${t('setPwTitle')}">🔑</button><button class="btn sm" onclick="sendToPerson(${i})" title="${t('sendToPerson')}">📤</button></div>
+      <div class="row" style="gap:4px">${isCtrl() ? (p.ctrl ? `<span class="ebadge always" title="${t('alwaysEdits')}">✏️</span>` : `<button class="btn sm ebtn ${p.editOn === false ? 'off' : 'on'}" onclick="toggleEdit(${i})" title="${t(p.editOn === false ? 'editOffTitle' : 'editOnTitle')}">${p.editOn === false ? '🚫' : '✏️'}</button>`) : ''}<button class="btn sm p" onclick="savePerson(${i})" title="${t('savedOk')}">💾</button><button class="btn sm" onclick="adminPin(${i})" title="${t('setPwTitle')}">🔑</button><button class="btn sm" onclick="sendToPerson(${i})" title="${t('sendToPerson')}">📤</button></div>
     </div>`).join('');
 }
 async function savePerson(i) {
