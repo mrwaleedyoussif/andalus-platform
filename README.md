@@ -2,13 +2,13 @@
 
 تطبيق ويب قابل للتثبيت (ويندوز / أندرويد / آيفون) يضم نسخة مستقلة من «المنصة الشاملة 2026/2027»
 للمراحل الثلاث (ابتدائي بنين أهلي · ابتدائي بنين عالمي · متوسط بنين عالمي) في مدارس الأندلس العالمية – الطائف،
-مع كل مزايا متابعة البرامج: برامجي، الإدخال السريع، كل البرامج، لوحة المتابعة، جهات الاتصال، مركز الإرسال.
+مع متابعة البرامج: الرئيسية، المؤشرات، برامجي، الإدخال السريع، كل البرامج، لوحة المتابعة، المنصة، جهات الاتصال، مركز الإرسال.
 
-- **المؤشرات**: تعريف كل مؤشر ومستهدفاته لكل مرحلة، مع نسبة إنجاز برامجه، وأزرار تفتح مكانه في المنصة وخطة العمل.
-- **المنصة**: عرض أوراق النسخة كما هي (الخلايا المدمجة، الألوان، مربعات الاختيار، الروابط)، والتنقل برقم الصف؛ المدير يعدّل الخلايا مباشرة.
-- كل اسم برنامج أو مؤشر عليه ↗ يفتح صفه في المنصة داخل التطبيق.
-- البيانات في Google Sheets عبر Google Apps Script (مشروع «منصة الأندلس 1448 — المراحل الثلاث (API)»)؛ الملف الأصلي ومتتبع البرامج لا يُعدَّلان.
+- الرئيسية: بلاطات بالأيقونات لكل الأقسام، ملخّص شخصي، وبحث واحد في البرامج والمؤشرات وأوراق المنصة.
+- الأمان: كلمة مرور خاصة إلزامية عند أول دخول، تخزين مملّح ومكرّر، جلسة تنتهي بعد 7 أيام دون استخدام، خروج من كل الأجهزة، سجل دخول، صلاحيات التعديل.
+- التصدير: Excel لقوائم البرامج، وطباعة / PDF للوحة المتابعة والمؤشرات.
 
-Andalus Platform 1448 — an installable PWA holding an independent copy of the school's comprehensive KPI platform
-for the three boys' stages, plus the program-tracking features (my programs, quick entry, dashboard, contacts, send centre).
-`config.js` holds the API URL and app key; `sw.js` caches the app shell.
+Andalus Platform 1448 — installable PWA for the school's KPI platform (three boys' stages) and its program tracking.
+
+Third-party files: line icons from [Lucide](https://lucide.dev) (ISC, built into `icons.js`), the IBM Plex Sans Arabic font
+(SIL OFL 1.1, `fonts/OFL-LICENSE.txt`) and SheetJS Community Edition (Apache-2.0, `vendor/xlsx-LICENSE.txt`).

@@ -2,6 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; worker-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>منصة الأندلس ١٤٤٨</title>
 <meta name="description" content="منصة الأندلس ١٤٤٨ — المنصة الشاملة ومتابعة برامجها: ابتدائي بنين (أهلي/عالمي) ومتوسط بنين (عالمي)">
@@ -15,7 +17,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="styles.css?v=8">
+<link rel="preload" href="fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css?v=9">
 </head>
 <body>
 <div id="offlineBar" class="offline" data-i18n="offline" hidden>📴 غير متصل بالإنترنت — تُعرض آخر بيانات محفوظة، ولن يُحفظ أي تعديل حتى يعود الاتصال.</div>
@@ -27,14 +30,15 @@
 </header>
 
 <nav id="nav" hidden>
+  <button data-v="home" onclick="go('home')"><span class="ic">🏠</span><span data-i18n="navHome">الرئيسية</span></button>
   <button data-v="ind" onclick="go('ind')"><span class="ic">🎯</span><span data-i18n="navInd">المؤشرات</span></button>
   <button data-v="mine" onclick="go('mine')"><span class="ic">📋</span><span data-i18n="navMine">برامجي</span></button>
   <button data-v="quick" onclick="go('quick')"><span class="ic">⚡</span><span data-i18n="navQuick">إدخال سريع</span></button>
-  <button data-v="all" onclick="go('all')"><span class="ic">🔎</span><span data-i18n="navAll">كل البرامج</span></button>
-  <button data-v="dash" onclick="go('dash')"><span class="ic">📊</span><span data-i18n="navDash">المتابعة</span></button>
+  <button data-v="all" class="nav-more" onclick="go('all')"><span class="ic">🔎</span><span data-i18n="navAll">كل البرامج</span></button>
+  <button data-v="dash" class="nav-more" onclick="go('dash')"><span class="ic">📊</span><span data-i18n="navDash">المتابعة</span></button>
   <button data-v="plat" onclick="go('plat')"><span class="ic">📑</span><span data-i18n="navPlat">المنصة</span></button>
-  <button data-v="people" onclick="go('people')" data-admin><span class="ic">👥</span><span data-i18n="navPeople">جهات الاتصال</span></button>
-  <button data-v="send" onclick="go('send')" data-admin><span class="ic">📤</span><span data-i18n="navSend">الإرسال</span></button>
+  <button data-v="people" class="nav-more" onclick="go('people')" data-admin><span class="ic">👥</span><span data-i18n="navPeople">جهات الاتصال</span></button>
+  <button data-v="send" class="nav-more" onclick="go('send')" data-admin><span class="ic">📤</span><span data-i18n="navSend">الإرسال</span></button>
 </nav>
 <div id="roBar" class="robar" hidden></div>
 
@@ -65,12 +69,47 @@
     </div>
   </section>
 
+  <!-- HOME -->
+  <section class="view" id="v-home">
+    <div class="hero">
+      <div class="hero-txt"><h2 id="homeHello"></h2><p id="homeSub"></p></div>
+      <div class="gsearch">
+        <span class="gs-ic">🔎</span>
+        <input type="search" id="gq" data-i18n-ph="gSearchPh" placeholder="ابحث في البرامج والمؤشرات وأوراق المنصة…" oninput="gSearch()" autocomplete="off">
+        <div id="gResults" class="gres" hidden></div>
+      </div>
+    </div>
+    <div id="homeStats" class="hstats"></div>
+    <div id="guide" class="card guide" hidden></div>
+    <div id="homeTiles" class="htiles"></div>
+  </section>
+
+  <!-- FIRST SIGN-IN: choose your own password -->
+  <section class="view" id="v-pwforce">
+    <div class="card login">
+      <div class="lock-hero">🔑</div>
+      <h2 data-i18n="pfTitle">اختر كلمة مرور جديدة</h2>
+      <p class="meta" data-i18n="pfIntro">لحماية حسابك، استبدل كلمة المرور التي استلمتها من المدرسة بكلمة مرور خاصة بك.</p>
+      <label class="f" for="pfOld" data-i18n="curPw">كلمة المرور الحالية</label>
+      <input type="password" id="pfOld" maxlength="64" autocomplete="current-password" autocapitalize="off" spellcheck="false">
+      <label class="f" for="pfNew" style="margin-top:10px" data-i18n="newPw">كلمة المرور الجديدة</label>
+      <input type="password" id="pfNew" maxlength="64" autocomplete="new-password" autocapitalize="off" spellcheck="false" oninput="pwMeter('pfNew','pfBar','pfRules')">
+      <div class="pwmeter"><i id="pfBar"></i></div>
+      <ul class="pwrules" id="pfRules"></ul>
+      <label class="f" for="pfNew2" data-i18n="newPw2">تأكيد كلمة المرور الجديدة</label>
+      <input type="password" id="pfNew2" maxlength="64" autocomplete="new-password" autocapitalize="off" spellcheck="false" onkeydown="if(event.key==='Enter')forceChange()">
+      <button class="btn p wide" onclick="forceChange()" style="margin-top:14px" data-i18n="pfBtn">حفظ والمتابعة</button>
+      <button class="btn wide" onclick="logout()" style="margin-top:8px" data-i18n="logout">🚪 تسجيل الخروج</button>
+    </div>
+  </section>
+
   <!-- MINE -->
   <section class="view" id="v-mine">
     <div class="row between">
       <h2 class="h"><span data-i18n="mineTitle">برامج</span> <span id="mineName"></span></h2>
       <span class="mini" id="mineCount"></span>
     </div>
+    <div class="toolrow"><button class="btn sm" onclick="exportXlsx('mine')" data-i18n="exportXlsx">⬇️ تصدير Excel</button></div>
     <div class="chips roles" id="mineRoles"></div>
     <div class="chips" id="mineChips"></div>
     <div id="mineList" class="list"></div>
@@ -114,7 +153,8 @@
           <select id="fStatus" class="grow" onchange="renderAll()"></select>
         </div>
       </div>
-      <p class="mini" id="allCount" style="margin:8px 0 0"></p>
+      <div class="row between" style="margin-top:8px"><p class="mini" id="allCount" style="margin:0"></p>
+        <div class="row" style="gap:6px"><button class="btn sm" onclick="exportXlsx('all')" data-i18n="exportXlsx">⬇️ تصدير Excel</button><button class="btn sm" onclick="printPage()" data-i18n="printPdf">🖨 طباعة / PDF</button></div></div>
     </div>
     <div id="allList" class="list"></div>
   </section>
@@ -126,7 +166,7 @@
       <h3 data-i18n="indTitle">🎯 مؤشرات المراحل الثلاث</h3>
       <input type="search" id="indQ" data-i18n-ph="indSearch" placeholder="🔎 رمز المؤشر أو اسمه…" oninput="renderInd()" style="margin-top:8px">
       <div id="indStage" class="stchips"></div>
-      <p class="mini" id="indCount" style="margin:8px 0 0"></p>
+      <div class="row between" style="margin-top:8px"><p class="mini" id="indCount" style="margin:0"></p><button class="btn sm" onclick="printPage()" data-i18n="printPdf">🖨 طباعة / PDF</button></div>
     </div>
     <div id="indList" class="list"></div>
   </section>
@@ -160,6 +200,7 @@
       <h2 class="h" data-i18n="dashTitle">📊 لوحة المتابعة</h2>
       <div class="row">
         <button class="btn sm" onclick="loadDash(true)" data-i18n="refresh">🔄 تحديث</button>
+        <button class="btn sm" onclick="printPage()" data-i18n="printPdf">🖨 طباعة / PDF</button>
         <button class="btn sm run" onclick="runSync()" data-admin data-sheet-only data-i18n="syncBtn">⬇️ مزامنة من المنصة</button>
         <button class="btn sm n" onclick="runCheck()" data-admin data-sheet-only data-i18n="checkBtn">🔔 إرسال تنبيهات اليوم</button>
         <button class="btn sm" onclick="sendTest()" data-admin data-sheet-only data-i18n="testBtn">✉️ إشعار تجريبي لي</button>
@@ -168,6 +209,7 @@
     <div id="dashNotice"></div>
     <div class="kpis" id="kpis"></div>
     <div class="grid2">
+      <div class="card"><h3 data-i18n="donutTitle">توزيع البرامج حسب الحالة</h3><div id="donut"></div></div>
       <div class="card"><h3 data-i18n="stages">المراحل</h3><div id="stageBars"></div></div>
       <div class="card"><h3 data-i18n="todayAlerts">🔔 تنبيهات اليوم</h3><div id="todayList" class="list"></div></div>
       <div class="card"><h3 data-i18n="lateProgs">⛔ برامج متأخرة</h3><div id="lateList" class="list"></div></div>
@@ -258,6 +300,11 @@
       </div>
       <div style="margin-top:10px"><button class="btn n sm" onclick="changePin()" data-i18n="changePwBtn">تغيير كلمة المرور</button></div>
     </div>
+    <div class="card">
+      <h3 data-i18n="secTitle">🛡 الأمان</h3>
+      <p class="mini" data-i18n="secSession">تنتهي الجلسة تلقائياً بعد 7 أيام دون استخدام.</p>
+      <button class="btn sm" onclick="logoutAll()" data-i18n="logoutAllBtn">🚪 تسجيل الخروج من كل الأجهزة الأخرى</button>
+    </div>
     <div class="card" id="installCard2" hidden>
       <h3 data-i18n="installTitle2">📲 تثبيت التطبيق</h3>
       <p class="meta" id="installHint2"></p>
@@ -276,9 +323,11 @@
 <div class="toast" id="toast"></div>
 <div class="updatebar" id="updateBar" hidden><span data-i18n="updateBar">تحديث جديد للتطبيق متاح</span> <button class="btn sm" onclick="location.reload()" data-i18n="updateNow">تحديث الآن</button></div>
 
-<script src="config.js?v=6"></script>
-<script src="i18n.js?v=10"></script>
-<script src="app.js?v=8"></script>
-<script src="plat.js?v=5"></script>
+<script src="icons.js?v=1"></script>
+<script src="config.js?v=7"></script>
+<script src="i18n.js?v=11"></script>
+<script src="app.js?v=9"></script>
+<script src="plat.js?v=6"></script>
+<script src="home.js?v=1"></script>
 </body>
 </html>

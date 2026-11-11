@@ -88,8 +88,13 @@ async function platLoad(gid, from, hl) {
   const grid = $('platGrid');
   try {
     if (!P.tabs) {
-      $('platTiles').innerHTML = loadingCard();
-      const r = await api('platTabs'); P.tabs = r.tabs.filter(x => !HIDDEN_TABS.test(x.title)); P.copyUrl = r.copyUrl || '';
+      const c = store.get('ptabs', null);                       // the sheet list rarely changes → instant from this device for 6 h
+      if (c && c.tabs && Date.now() - (c.at || 0) < 6 * 3600000) { P.tabs = c.tabs; P.copyUrl = c.copyUrl || ''; }
+      else {
+        $('platTiles').innerHTML = loadingCard();
+        const r = await api('platTabs'); P.tabs = r.tabs.filter(x => !HIDDEN_TABS.test(x.title)); P.copyUrl = r.copyUrl || '';
+        store.set('ptabs', { at: Date.now(), tabs: P.tabs, copyUrl: P.copyUrl });
+      }
       ['platOpen', 'platOpen2'].forEach(id => { const o = $(id); if (o) { o.hidden = !P.copyUrl; o.href = P.copyUrl; } });
     }
     if (gid == null) platHome();

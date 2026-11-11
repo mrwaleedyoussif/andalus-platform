@@ -69,6 +69,7 @@ async function api(action, payload = {}, { timeout = 60000 } = {}) {
     const code = String(j.error || '');
     if (code === 'AUTH' || code === 'AUTH_EXPIRED') { logout(true); }
     const base = code.split(':')[0];
+    if (base === 'MUST_CHANGE_PW') { S.mustChange = true; store.set('mustChange', true); setTimeout(() => go('pwforce'), 0); }
     if ((base === 'EDIT_LOCKED' || base === 'EDIT_OFF') && S.boot) { S.boot.edit = Object.assign({}, S.boot.edit, { can: false, locked: base === 'EDIT_LOCKED' || (S.boot.edit || {}).locked, mineOn: base === 'EDIT_OFF' ? false : (S.boot.edit || {}).mineOn }); setTimeout(() => { applyEditState(); const v = document.querySelector('.view.on'); if (v) go(v.id.slice(2)); }, 0); }
     const err = new Error(errText(base)); err.code = base; err.left = j.left; throw err;
   }
@@ -137,7 +138,7 @@ async function init() {
   S.token = store.get('tr_token', '');
   S.me = store.get('tr_me', null);
   const cache = store.get('tr_cache', null);
-  if (S.token && S.me && cache) { S.boot = cache.boot; S.programs = cache.programs; S.loadedAt = cache.at; fillSelects(); applyRole(); go('mine'); }
+  if (S.token && S.me && cache) { S.boot = cache.boot; S.programs = cache.programs; S.loadedAt = cache.at; fillSelects(); applyRole(); go('home'); }
   if (S.token && S.me) {
     try { await refresh(false); } catch (e) { if (!S.boot) { toast(e.message, 6000); go('login'); loadNames(); } else toast(t('updateFail', { m: e.message }), 5000); }
   } else { applyRole(); go('login'); loadNames(); }
@@ -156,7 +157,7 @@ async function refresh(silent) {
   store.set('tr_me', S.me); store.set('tr_cache', { boot: b, programs: p.programs, at: p.at });
   fillSelects(); applyRole();
   const cur = document.querySelector('.view.on'); const v = cur ? cur.id.slice(2) : 'mine';
-  go(['loading', 'login'].includes(v) ? 'mine' : v);
+  go(['loading', 'login', 'pwforce'].includes(v) ? 'home' : v);
   if (!silent) toast(t('updated'));
 }
 function fillSelects() {
@@ -181,6 +182,7 @@ async function login() {
     const r = await api('login', { name, pin });
     S.token = r.token; S.me = r.me; store.set('tr_token', S.token); store.set('tr_me', S.me); store.set('tr_lastName', name);
     $('loginPin').value = '';
+    if (r.mustChange) { S.mustChange = true; store.set('mustChange', true); S._typedPw = pin; applyRole(); go('pwforce'); return; }   // first sign-in: own password first
     document.querySelectorAll('.view').forEach(x => x.classList.toggle('on', x.id === 'v-loading'));
     await refresh(true);
     toast(t('welcome', { n: S.me.name }));
@@ -553,4 +555,5 @@ function showInstallCard(cardId, hintId, btnId) {
 }
 async function installApp() { if (!S.installEvt) return; S.installEvt.prompt(); try { await S.installEvt.userChoice; } catch (e) {} S.installEvt = null; ['installBtn', 'installBtn2'].forEach(id => $(id).hidden = true); }
 
-init();
+// start after every script (icons, platform, home) has loaded, so their hooks are in place
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else setTimeout(init, 0);
