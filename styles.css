@@ -483,3 +483,7 @@ img.avatar{object-fit:cover;background:#e8eef9;padding:0;border:0}
 .pw-eye[aria-pressed=true]{color:#0063af}
 .pw-eye:focus-visible{outline:2px solid #00a8d0;outline-offset:1px}
 .pw-eye .i{width:20px;height:20px;vertical-align:0}
+/* ---- remember me ---- */
+.remember{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;user-select:none;text-align:start;padding:2px 0}
+.remember input{width:20px;height:20px;margin:0;accent-color:#0063af;flex:0 0 auto;cursor:pointer}
+.remember-hint{margin:4px 0 0;text-align:start;line-height:1.6;min-height:1.6em}

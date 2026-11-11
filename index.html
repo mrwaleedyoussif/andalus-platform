@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preload" href="fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=16">
+<link rel="stylesheet" href="styles.css?v=17">
 </head>
 <body>
 <div id="offlineBar" class="offline" data-i18n="offline" hidden>📴 غير متصل بالإنترنت — تُعرض آخر بيانات محفوظة، ولن يُحفظ أي تعديل حتى يعود الاتصال.</div>
@@ -66,7 +66,9 @@
       <select id="loginName"></select>
       <label class="f" for="loginPin" style="margin-top:10px" data-i18n="password">كلمة المرور</label>
       <input type="password" id="loginPin" maxlength="64" placeholder="••••••••" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" onkeydown="if(event.key==='Enter')login()">
-      <button class="btn p wide" id="loginBtn" onclick="login()" style="margin-top:14px" data-i18n="loginBtn">دخول</button>
+      <label class="remember" for="rememberMe"><input type="checkbox" id="rememberMe" checked onchange="rememberHint()"> <span data-i18n="rememberMe">تذكرني على هذا الجهاز</span></label>
+      <p class="mini remember-hint" id="rememberHint"></p>
+      <button class="btn p wide" id="loginBtn" onclick="login()" style="margin-top:10px" data-i18n="loginBtn">دخول</button>
       <p class="mini" id="loginHint" style="margin-top:10px"></p>
       <p class="mini" data-i18n="forgot">نسيت كلمة المرور؟ اطلب من مدير المدرسة أو مشرف المنصة تعيين كلمة جديدة لك.</p>
     </div>
@@ -360,9 +362,9 @@
 <div class="updatebar" id="updateBar" hidden><span data-i18n="updateBar">تحديث جديد للتطبيق متاح</span> <button class="btn sm" onclick="location.reload()" data-i18n="updateNow">تحديث الآن</button></div>
 
 <script src="icons.js?v=2"></script>
-<script src="config.js?v=8"></script>
-<script src="i18n.js?v=11"></script>
-<script src="app.js?v=11"></script>
+<script src="config.js?v=9"></script>
+<script src="i18n.js?v=12"></script>
+<script src="app.js?v=12"></script>
 <script src="plat.js?v=7"></script>
 <script src="home.js?v=5"></script>
 <script src="stage.js?v=2"></script>

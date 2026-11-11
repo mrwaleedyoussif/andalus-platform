@@ -24,6 +24,7 @@ function applyI18n() {
   document.querySelectorAll('[data-i18n-role]').forEach(el => { el.textContent = tRole(el.value); });
   const lb = $('langBtn'); if (lb) { lb.innerHTML = '🌐<span class="lt"> ' + t('langBtn') + '</span>'; lb.title = t('langBtn'); lb.setAttribute('aria-label', t('langBtn')); }
   const ls = $('langSel'); if (ls) ls.value = S.lang;
+  if (typeof rememberHint === 'function') rememberHint();
 }
 function setLang(l) {
   S.lang = l === 'en' ? 'en' : 'ar'; store.set('tr_lang', S.lang); applyI18n();
@@ -52,7 +53,23 @@ const isExec = (name, p) => owns(name, p.presp || p.iresp, '');
 const isFollow = (name, p) => { const n = nkey(name); return !!n && nkey(p.iresp) === n; };
 // keys are namespaced: this app shares the github.io origin with «متتبع برامج المؤشرات», whose session must never leak in here
 const NS = 'andalusPlat1448:';
-const store = { get(k, d) { try { const v = localStorage.getItem(NS + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(NS + k, JSON.stringify(v)); } catch (e) {} }, del(k) { try { localStorage.removeItem(NS + k); } catch (e) {} } };
+// «تذكرني»: on → the session stays on this device (7 days without use); off → the session lives only until the app/browser is closed
+const SESSION_KEYS = ['tr_token', 'tr_me', 'tr_cache', 'pmodel', 'ptabs', 'photos', 'mustChange'];
+const _ls = () => { try { return window.localStorage; } catch (e) { return null; } }, _ss = () => { try { return window.sessionStorage; } catch (e) { return null; } };
+let REMEMBER = (() => { try { return _ls().getItem(NS + 'remember') !== '0'; } catch (e) { return true; } })();
+const _box = k => (!REMEMBER && SESSION_KEYS.includes(k) ? _ss() : _ls());
+const store = {
+  get(k, d) { try { const v = _box(k).getItem(NS + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { _box(k).setItem(NS + k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { [_ls(), _ss()].forEach(b => { try { b.removeItem(NS + k); } catch (e) {} }); }
+};
+function setRemember(on) {
+  REMEMBER = !!on;
+  try { _ls().setItem(NS + 'remember', REMEMBER ? '1' : '0'); } catch (e) {}
+  const other = REMEMBER ? _ss() : _ls();                                   // nothing of the session is left behind in the other place
+  SESSION_KEYS.forEach(k => { try { other.removeItem(NS + k); } catch (e) {} });
+  if (!REMEMBER) store.del('tr_lastName');
+}
 
 // ------------------------------------------------------------ API
 async function api(action, payload = {}, { timeout = 60000 } = {}) {
@@ -135,6 +152,7 @@ async function init() {
   $('offlineBar').hidden = S.online;
   S.lang = store.get('tr_lang', '') === 'en' ? 'en' : 'ar'; applyI18n();   // Arabic unless the user chose English
   setupInstall();
+  if ($('rememberMe')) { $('rememberMe').checked = REMEMBER; rememberHint(); }
   S.token = store.get('tr_token', '');
   S.me = store.get('tr_me', null);
   const cache = store.get('tr_cache', null);
@@ -180,7 +198,8 @@ async function login() {
   const btn = $('loginBtn'); btn.disabled = true; btn.innerHTML = '<span class="spin"></span> ' + t('loggingIn');
   try {
     const r = await api('login', { name, pin });
-    S.token = r.token; S.me = r.me; store.set('tr_token', S.token); store.set('tr_me', S.me); store.set('tr_lastName', name);
+    setRemember(!$('rememberMe') || $('rememberMe').checked);
+    S.token = r.token; S.me = r.me; store.set('tr_token', S.token); store.set('tr_me', S.me); if (REMEMBER) store.set('tr_lastName', name);
     $('loginPin').value = '';
     if (r.mustChange) { S.mustChange = true; store.set('mustChange', true); S._typedPw = pin; applyRole(); go('pwforce'); return; }   // first sign-in: own password first
     document.querySelectorAll('.view').forEach(x => x.classList.toggle('on', x.id === 'v-loading'));
@@ -191,6 +210,7 @@ async function login() {
     go('login');
   } finally { btn.disabled = false; btn.textContent = t('loginBtn'); }
 }
+function rememberHint() { const c = $('rememberMe'), h = $('rememberHint'); if (c && h) h.textContent = t(c.checked ? 'rememberOn' : 'rememberOff'); }
 function logout(silent) {
   S.token = ''; S.me = null; S.boot = null; S.programs = []; S.dash = null; S.scope = undefined;
   ['tr_token', 'tr_me', 'tr_cache'].forEach(store.del);
