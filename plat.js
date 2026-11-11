@@ -101,7 +101,8 @@ function drawSheet() {
     for (let c = 1; c <= cols; c++) {
       if (cov[r + ':' + c]) continue;
       const o = cells[c - 1] || {}, m = span[r + ':' + c];
-      const rs = m ? Math.min(m[2], s.to - r + 1) : 1, cs = m ? m[3] : 1;
+      let rs = 1; if (m) { rs = 0; for (let k = r; k < r + m[2] && k <= s.to; k++) if (!hidden.has(k)) rs++; rs = Math.max(1, rs); }   // hidden rows don't count
+      const cs = m ? m[3] : 1;
       const st = [o.bg ? 'background:' + o.bg : '', o.fc ? 'color:' + o.fc : '', o.b ? 'font-weight:700' : '', o.i ? 'font-style:italic' : '',
         o.fs ? 'font-size:' + Math.min(18, Math.max(10, o.fs + 2)) + 'px' : '', o.al ? 'text-align:' + ({ L: 'left', C: 'center', R: 'right' }[o.al] || 'start') : ''].filter(Boolean).join(';');
       let v = o.cb !== undefined ? (o.cb ? '☑' : '☐') : esc(o.v || '');
