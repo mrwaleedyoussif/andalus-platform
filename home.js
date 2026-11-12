@@ -77,7 +77,7 @@ function renderHome() {
     ['soon', 'alarm-clock', t('stSoon'), applyFilter(mine, 'soon').length, 'soon'], ['done', 'circle-check', t('stDone'), applyFilter(mine, 'done').length, 'ok']];
   $('homeStats').innerHTML = st.map(x => `<button class="hstat ${x[4]}" onclick="S.scope='${scope}';S.role='all';S.filter='${x[0]}';go('mine')">${ic(x[1])}<b>${x[3]}</b><span>${esc(x[2])}</span></button>`).join('');
   const adm = isAdmin();
-  $('homeTiles').innerHTML = TILES.filter(x => !x[4] || (x[4] === 2 ? isCtrl() : adm)).map(x => `<button class="htile" onclick="go('${x[0]}')"><span class="hic">${ic(x[1])}</span><span class="ht">${esc(t(x[2]))}</span><span class="hd">${esc(t(x[3]))}</span></button>`).join('');
+  $('homeTiles').innerHTML = TILES.filter(x => !x[4] || (x[4] === 2 ? isCtrl() : x[4] === 3 ? (isCtrl() || adm) : adm)).map(x => `<button class="htile" onclick="go('${x[0]}')"><span class="hic">${ic(x[1])}</span><span class="ht">${esc(t(x[2]))}</span><span class="hd">${esc(t(x[3]))}</span></button>`).join('');
   renderGuide();
 }
 function dismissGuide() { store.set('guideDone|' + nkey(myName()), true); renderGuide(); }

@@ -88,7 +88,7 @@ function openProg(id, tab) {
   const p = progOf(id); if (!p) return toast(t('xNotFound'), 4000);
   PM.id = String(p.id); PM.tab = tab === 'ap' ? 'ev' : (tab || 'ev'); PM.focusAp = tab === 'ap';
   $('xModal').hidden = false; document.body.classList.add('xm-open');
-  if (!PM.pushed) { try { history.pushState({ xm: 1 }, ''); PM.pushed = true; } catch (e) {} }
+  if (!PM.pushed) { try { history.pushState({ xm: 1, nb: typeof NB !== 'undefined' ? NB.stack.length : 0 }, ''); PM.pushed = true; } catch (e) {} }
   renderProg();
 }
 function closeProg(silent) {

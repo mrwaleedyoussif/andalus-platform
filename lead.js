@@ -11,12 +11,12 @@ Object.assign(I18N.ar, {
   navLog: 'سجل النشاط', tLog: 'سجل النشاط', tLogD: 'من غيّر ماذا ومتى', logTitle: 'سجل النشاط', logSearch: 'ابحث باسم أو برنامج أو إجراء…', logGo: 'بحث', logMore: 'عرض المزيد', logNone: 'لا نتائج.', logCount: '{n} سجلاً',
   navReport: 'التقرير الأسبوعي', tReport: 'التقرير الأسبوعي', tReportD: 'ملخص الأسبوع، أوقات الإرسال والنسخ الاحتياطي', repTitle: 'التقرير الأسبوعي',
   repIntro: 'يُرسل تلقائياً صباح كل أحد بالبريد (مع نسخة PDF) إلى المالك ومدير المدرسة ووكيل الشؤون الأكاديمية والمشرف الأكاديمي عند تفعيل التشغيل اليومي.',
-  repShow: 'عرض تقرير هذا الأسبوع', repSendNow: 'إرسال الآن للإدارة', repConfirm: 'إرسال التقرير الأسبوعي الآن بالبريد إلى الإدارة؟', repSent: '✅ أُرسل التقرير إلى {n}', repOnlyCtrl: 'هذه الصفحة للمالك ومدير المدرسة ووكيل الشؤون الأكاديمية والمشرف الأكاديمي.',
-  autoTitle: '⏰ أوقات الإرسال اليومي', autoIntro: 'يغيّرها المالك ومدير المدرسة. يبدأ العمل بالوقت الجديد من الموعد التالي، ويرسل Google في حدود ربع ساعة من الوقت المختار (بتوقيت الرياض).',
+  repShow: 'عرض تقرير هذا الأسبوع', repSendNow: 'إرسال الآن للإدارة', repConfirm: 'إرسال التقرير الأسبوعي الآن بالبريد إلى الإدارة؟', repSent: '✅ أُرسل التقرير إلى {n}', repOnlyCtrl: 'هذه الصفحة للمالك ومدير المدرسة ووكيل الشؤون الأكاديمية والمشرف الأكاديمي.', repTimesOnly: 'التقرير نفسه للمالك ومدير المدرسة ووكيل الشؤون الأكاديمية والمشرف الأكاديمي — ويمكنك هنا تغيير أوقات الإرسال اليومي.',
+  autoTitle: '⏰ أوقات الإرسال اليومي', autoIntro: 'يغيّرها المالك والمطوّر ومديرو التطبيق ومدير المدرسة. يبدأ العمل بالوقت الجديد من الموعد التالي، ويرسل Google في حدود ربع ساعة من الوقت المختار (بتوقيت الرياض).',
   schAlerts: 'تنبيهات البريد وواتساب', schAlertsD: 'مواعيد بدء البرامج وانتهائها والتأخر — للمنفّذ والمتابع، والمدير والوكيل الأكاديمي قبل 24 ساعة وفي اليوم نفسه.',
   schDaily: 'تنبيهات التطبيق والجوال', schDailyD: 'تذكير كل موظف بما يبدأ أو ينتهي غداً وما تأخر، ولقطة التقدم اليومية. وكل أحد في الوقت نفسه: التقرير الأسبوعي بالبريد ونسخة احتياطية.',
   schAt: 'الوقت', schSave: 'حفظ الوقت', schSaved: '✅ حُفظ — {w} الساعة {t}', schLastMail: 'آخر إرسال: {d}', schNever: 'لم يُرسل بعد',
-  autoOn: 'مفعّل', autoOff: 'متوقف', autoEnable: 'تفعيل', autoDisable: 'إيقاف', autoLast: 'آخر تشغيل: {d}', autoOwner: 'التفعيل والإيقاف للمالك فقط.', schView: 'يغيّر الوقت المالك ومدير المدرسة فقط.',
+  autoOn: 'مفعّل', autoOff: 'متوقف', autoEnable: 'تفعيل', autoDisable: 'إيقاف', autoLast: 'آخر تشغيل: {d}', autoOwner: 'التفعيل والإيقاف للمالك فقط.', schView: 'يغيّر الوقت المالك والمطوّر ومديرو التطبيق ومدير المدرسة فقط.',
   autoTitle2: '💾 النسخ الاحتياطي',
   bkTitle: 'النسخ الاحتياطية', bkNow: 'نسخة احتياطية الآن', bkDone: '✅ أُنشئت نسخة احتياطية', bkNone: 'لا توجد نسخ بعد.', bkWorking: 'جارٍ إنشاء النسخة…',
   navStars: 'المتميزون', tStars: 'المتميزون', tStarsD: 'الأكثر إنجازاً هذا الشهر', starsTitle: '🏆 المتميزون', starsIntro: 'ترتيب الموظفين بعدد البرامج التي اكتملت واعتُمدت خلال الشهر، وكم منها في موعده.',
@@ -30,12 +30,12 @@ Object.assign(I18N.en, {
   navLog: 'Activity log', tLog: 'Activity log', tLogD: 'Who changed what, and when', logTitle: 'Activity log', logSearch: 'Search a name, program or action…', logGo: 'Search', logMore: 'Show more', logNone: 'No results.', logCount: '{n} entries',
   navReport: 'Weekly report', tReport: 'Weekly report', tReportD: 'The week’s summary, send times and backups', repTitle: 'Weekly report',
   repIntro: 'Sent automatically every Sunday morning by e-mail (with a PDF copy) to the owner, the principal, the academic VP and the academic supervisor when the daily job is on.',
-  repShow: 'Show this week’s report', repSendNow: 'Send to management now', repConfirm: 'E-mail the weekly report to management now?', repSent: '✅ Report sent to {n}', repOnlyCtrl: 'This page is for the owner, the principal, the academic VP and the academic supervisor.',
-  autoTitle: '⏰ Daily send times', autoIntro: 'The owner and the school principal can change them. A new time applies from the next run; Google sends within about 15 minutes of the chosen time (Riyadh time).',
+  repShow: 'Show this week’s report', repSendNow: 'Send to management now', repConfirm: 'E-mail the weekly report to management now?', repSent: '✅ Report sent to {n}', repOnlyCtrl: 'This page is for the owner, the principal, the academic VP and the academic supervisor.', repTimesOnly: 'The report itself is for the owner, the principal, the academic VP and the academic supervisor — here you can change the daily send times.',
+  autoTitle: '⏰ Daily send times', autoIntro: 'The owner & developer, the app admins and the school principal can change them. A new time applies from the next run; Google sends within about 15 minutes of the chosen time (Riyadh time).',
   schAlerts: 'E-mail and WhatsApp alerts', schAlertsD: 'Program start, end and overdue alerts — to the person doing it and the follower, and to the principal and academic VP 24 hours before and on the day.',
   schDaily: 'App and phone notifications', schDailyD: 'Each person is reminded of what starts or ends tomorrow and what is overdue, plus the daily progress snapshot. Every Sunday at the same time: the weekly report by e-mail and a backup.',
   schAt: 'Time', schSave: 'Save time', schSaved: '✅ Saved — {w} at {t}', schLastMail: 'Last sent: {d}', schNever: 'Not sent yet',
-  autoOn: 'On', autoOff: 'Off', autoEnable: 'Turn on', autoDisable: 'Turn off', autoLast: 'Last run: {d}', autoOwner: 'Only the owner can switch these on or off.', schView: 'Only the owner and the school principal can change the time.',
+  autoOn: 'On', autoOff: 'Off', autoEnable: 'Turn on', autoDisable: 'Turn off', autoLast: 'Last run: {d}', autoOwner: 'Only the owner can switch these on or off.', schView: 'Only the owner & developer, the app admins and the school principal can change the time.',
   autoTitle2: '💾 Backups',
   bkTitle: 'Backups', bkNow: 'Back up now', bkDone: '✅ Backup created', bkNone: 'No backups yet.', bkWorking: 'Creating the backup…',
   navStars: 'Top performers', tStars: 'Top performers', tStarsD: 'Most completed this month', starsTitle: '🏆 Top performers', starsIntro: 'Staff ranked by the programs completed and approved in the month, and how many were on time.',
@@ -120,9 +120,9 @@ async function renderAuto() {
       row('alerts', 'mail', r.alerts, r.alertTime, r.lastCheck ? t('schLastMail', { d: fmtDT(r.lastCheck) }) : t('schNever')) +
       row('daily', 'bell-ring', r.daily, r.dailyTime, r.last ? t('autoLast', { d: fmtDT(r.last.at) }) : t('schNever')) +
       `<p class="mini">${esc(t(r.canTime ? 'autoOwner' : 'schView'))}</p>
-      <h3 style="margin-top:16px">${ic('database-backup')} ${esc(t('bkTitle'))}</h3>
+      ${r.canBackup === false ? '' : `<h3 style="margin-top:16px">${ic('database-backup')} ${esc(t('bkTitle'))}</h3>
       <button class="btn sm" onclick="backupNow()">${esc(t('bkNow'))}</button>
-      ${(r.backups || []).length ? `<div class="bkl">${r.backups.map(b => `<a class="bkr" href="${esc(b.url)}" target="_blank" rel="noopener">${ic('file-spreadsheet')}<span class="grow">${esc(b.name)}</span><span class="mini">${fmtDT(b.at)}</span></a>`).join('')}</div>` : `<p class="meta">${esc(t('bkNone'))}</p>`}`;
+      ${(r.backups || []).length ? `<div class="bkl">${r.backups.map(b => `<a class="bkr" href="${esc(b.url)}" target="_blank" rel="noopener">${ic('file-spreadsheet')}<span class="grow">${esc(b.name)}</span><span class="mini">${fmtDT(b.at)}</span></a>`).join('')}</div>` : `<p class="meta">${esc(t('bkNone'))}</p>`}`}`;
   } catch (e) { box.innerHTML = `<p class="mini">❌ ${esc(e.message)}</p>`; }
 }
 async function autoSet(on, what) { try { await api('autoSet', { on, what: what || 'daily' }); renderAuto(); } catch (e) { toast('❌ ' + e.message, 6000); } }
@@ -176,11 +176,15 @@ go = function (v) {
   _goL(v);
   if (!S.me) return;
   if (v === 'log' && !LOG.rows.length) loadLog(true);
-  if (v === 'report') { if (!isCtrl()) { $('repBox').hidden = false; $('repBox').innerHTML = `<p class="meta">${esc(t('repOnlyCtrl'))}</p>`; $('autoBox').innerHTML = ''; } else { renderAuto(); if ($('repBox').hidden) repPreview(); } }
+  if (v === 'report') {
+    const head = document.querySelector('#v-report > .card'); if (head) head.hidden = !isCtrl();          // preview / send / print: the report's readers only
+    if (!isCtrl()) { $('repBox').hidden = false; $('repBox').innerHTML = `<p class="meta">${esc(t(isAdmin() ? 'repTimesOnly' : 'repOnlyCtrl'))}</p>`; if (isAdmin()) renderAuto(); else $('autoBox').innerHTML = ''; }   // app admins: the send times
+    else { renderAuto(); if ($('repBox').hidden) repPreview(); }
+  }
   if (v === 'stars') renderStars();
   if (v === 'cert') renderCert();
 };
 const _setStageL = typeof setStage === 'function' ? setStage : null;
 if (_setStageL) setStage = function () { const r = _setStageL.apply(this, arguments); if ((document.querySelector('.view.on') || {}).id === 'v-dash') drawProgress(false); return r; };
 TILES.splice(TILES.findIndex(x => x[0] === 'dash') + 1, 0, ['stars', 'trophy', 'tStars', 'tStarsD']);
-TILES.splice(TILES.findIndex(x => x[0] === 'send') + 1, 0, ['report', 'file-text', 'tReport', 'tReportD', 2], ['log', 'scroll-text', 'tLog', 'tLogD', 1]);
+TILES.splice(TILES.findIndex(x => x[0] === 'send') + 1, 0, ['report', 'file-text', 'tReport', 'tReportD', 3], ['log', 'scroll-text', 'tLog', 'tLogD', 1]);
