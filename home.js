@@ -150,10 +150,11 @@ renderDash = function () {
   document.querySelectorAll('#kpis .kpi').forEach((k, i) => { if (!k.querySelector('.kic')) k.insertAdjacentHTML('afterbegin', `<span class="kic">${ic(icons[i] || 'layers')}</span>`); });
   drawDonut();
 };
+let dashProgs = () => S.programs;                                       // dashemp.js narrows it to one employee
 function drawDonut() {
   const box = $('donut'); if (!box) return;
-  const counts = {}; S.programs.forEach(p => { counts[p.status] = (counts[p.status] || 0) + 1; });
-  const order = (S.boot.statuses || Object.keys(counts)).filter(s => counts[s]), total = S.programs.length || 1;
+  const L = dashProgs(), counts = {}; L.forEach(p => { counts[p.status] = (counts[p.status] || 0) + 1; });
+  const order = (S.boot.statuses || Object.keys(counts)).filter(s => counts[s]), total = L.length || 1;
   const R = 54, C = 2 * Math.PI * R; let acc = 0;
   const arcs = order.map(s => { const v = counts[s], len = C * v / total, seg = `<circle r="${R}" cx="70" cy="70" fill="none" stroke="${STATUS_COLOR[s] || '#94a3b8'}" stroke-width="22" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-acc}"><title>${esc(tStatus(s))}: ${v}</title></circle>`; acc += len; return seg; }).join('');
   const done = counts['مكتمل'] || 0;

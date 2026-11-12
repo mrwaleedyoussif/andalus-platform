@@ -1,7 +1,7 @@
 /* Service worker — caches the app shell so it opens instantly and works offline, and shows phone notifications.
    API calls (script.google.com) are never cached. Bump CACHE on every release. */
-const CACHE = 'andalus-platform-v16';
-const SHELL = ['./', './index.html', './styles.css?v=19', './icons.js?v=3', './app.js?v=13', './plat.js?v=7', './home.js?v=6', './stage.js?v=2', './emp.js?v=2', './photo.js?v=1', './pwshow.js?v=1', './prog.js?v=1', './notify.js?v=1', './passkey.js?v=1', './cal.js?v=1', './lead.js?v=2', './theme.js?v=1', './i18n.js?v=12', './config.js?v=11', './manifest.webmanifest',
+const CACHE = 'andalus-platform-v17';
+const SHELL = ['./', './index.html', './styles.css?v=20', './icons.js?v=4', './app.js?v=13', './plat.js?v=7', './home.js?v=7', './stage.js?v=3', './emp.js?v=2', './photo.js?v=1', './pwshow.js?v=1', './prog.js?v=1', './notify.js?v=1', './passkey.js?v=1', './cal.js?v=1', './lead.js?v=2', './theme.js?v=1', './dashemp.js?v=1', './i18n.js?v=12', './config.js?v=12', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-192.png', './icons/maskable-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png', './icons/favicon-64.png', './icons/school-logo.png', './icons/school-logo-ahliyya.png', './icons/ahliya-mark.png',
   './fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2', './fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2', './fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2',
   './fonts/ibm-plex-sans-arabic-latin-400-normal.woff2', './fonts/ibm-plex-sans-arabic-latin-600-normal.woff2', './fonts/ibm-plex-sans-arabic-latin-700-normal.woff2', './vendor/xlsx.mini.min.js'];

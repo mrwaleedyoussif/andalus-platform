@@ -89,7 +89,7 @@ async function platOpenTab(gid) {
 // dashboard: with a stage chosen, the figures and lists are worked out for that stage only (same rules as the server)
 const _renderDashStage = renderDash;
 renderDash = function () {
-  if (!S.stage || !S.dash) return _renderDashStage();
+  if (!S.stage || !S.dash || S.dash.__emp) return _renderDashStage();         // an employee's figures are already worked out for the stage
   const orig = S.dash; S.dash = stageDash(orig);
   try { _renderDashStage(); } finally { S.dash = orig; }
 };
