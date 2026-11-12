@@ -4,14 +4,20 @@
  *  top performers with a printable certificate of appreciation. Loaded after cal.js.
  * ========================================================================== */
 'use strict';
+Object.assign(I18N.ar.err, { BAD_TIME: 'الوقت غير صالح' });
+Object.assign(I18N.en.err, { BAD_TIME: 'Invalid time' });
 Object.assign(I18N.ar, {
   progTitle: '📈 التقدم عبر الأسابيع', progNote: 'نسبة البرامج المكتملة لكل مرحلة. النقاط المفرغة تقديرية من تواريخ الإكمال السابقة، والممتلئة لقطات يومية فعلية.', progFew: 'يتكوّن الرسم مع الأيام — تُسجَّل لقطة كل يوم.',
   navLog: 'سجل النشاط', tLog: 'سجل النشاط', tLogD: 'من غيّر ماذا ومتى', logTitle: 'سجل النشاط', logSearch: 'ابحث باسم أو برنامج أو إجراء…', logGo: 'بحث', logMore: 'عرض المزيد', logNone: 'لا نتائج.', logCount: '{n} سجلاً',
-  navReport: 'التقرير الأسبوعي', tReport: 'التقرير الأسبوعي', tReportD: 'ملخص الأسبوع والنسخ الاحتياطي', repTitle: 'التقرير الأسبوعي',
+  navReport: 'التقرير الأسبوعي', tReport: 'التقرير الأسبوعي', tReportD: 'ملخص الأسبوع، أوقات الإرسال والنسخ الاحتياطي', repTitle: 'التقرير الأسبوعي',
   repIntro: 'يُرسل تلقائياً صباح كل أحد بالبريد (مع نسخة PDF) إلى المالك ومدير المدرسة ووكيل الشؤون الأكاديمية والمشرف الأكاديمي عند تفعيل التشغيل اليومي.',
   repShow: 'عرض تقرير هذا الأسبوع', repSendNow: 'إرسال الآن للإدارة', repConfirm: 'إرسال التقرير الأسبوعي الآن بالبريد إلى الإدارة؟', repSent: '✅ أُرسل التقرير إلى {n}', repOnlyCtrl: 'هذه الصفحة للمالك ومدير المدرسة ووكيل الشؤون الأكاديمية والمشرف الأكاديمي.',
-  autoTitle: '⚙️ التشغيل اليومي والنسخ الاحتياطي', autoIntro: 'كل يوم 6:40 صباحاً: لقطة التقدم، وتذكير كل موظف بما يبدأ أو ينتهي غداً (تنبيه في التطبيق والجوال). وكل أحد: التقرير الأسبوعي، ونسخة احتياطية من ملفي البيانات (يُحتفظ بآخر 8 نسخ).',
-  autoOn: 'التشغيل اليومي مفعّل', autoOff: 'التشغيل اليومي غير مفعّل', autoEnable: 'تفعيل', autoDisable: 'إيقاف', autoLast: 'آخر تشغيل: {d}', autoOwner: 'يفعّله المالك فقط.',
+  autoTitle: '⏰ أوقات الإرسال اليومي', autoIntro: 'يغيّرها المالك ومدير المدرسة. يبدأ العمل بالوقت الجديد من الموعد التالي، ويرسل Google في حدود ربع ساعة من الوقت المختار (بتوقيت الرياض).',
+  schAlerts: 'تنبيهات البريد وواتساب', schAlertsD: 'مواعيد بدء البرامج وانتهائها والتأخر — للمنفّذ والمتابع، والمدير والوكيل الأكاديمي قبل 24 ساعة وفي اليوم نفسه.',
+  schDaily: 'تنبيهات التطبيق والجوال', schDailyD: 'تذكير كل موظف بما يبدأ أو ينتهي غداً وما تأخر، ولقطة التقدم اليومية. وكل أحد في الوقت نفسه: التقرير الأسبوعي بالبريد ونسخة احتياطية.',
+  schAt: 'الوقت', schSave: 'حفظ الوقت', schSaved: '✅ حُفظ — {w} الساعة {t}', schLastMail: 'آخر إرسال: {d}', schNever: 'لم يُرسل بعد',
+  autoOn: 'مفعّل', autoOff: 'متوقف', autoEnable: 'تفعيل', autoDisable: 'إيقاف', autoLast: 'آخر تشغيل: {d}', autoOwner: 'التفعيل والإيقاف للمالك فقط.', schView: 'يغيّر الوقت المالك ومدير المدرسة فقط.',
+  autoTitle2: '💾 النسخ الاحتياطي',
   bkTitle: 'النسخ الاحتياطية', bkNow: 'نسخة احتياطية الآن', bkDone: '✅ أُنشئت نسخة احتياطية', bkNone: 'لا توجد نسخ بعد.', bkWorking: 'جارٍ إنشاء النسخة…',
   navStars: 'المتميزون', tStars: 'المتميزون', tStarsD: 'الأكثر إنجازاً هذا الشهر', starsTitle: '🏆 المتميزون', starsIntro: 'ترتيب الموظفين بعدد البرامج التي اكتملت واعتُمدت خلال الشهر، وكم منها في موعده.',
   starsDone: '{n} مكتمل', starsOnTime: '{n} في موعده', starsNone: 'لا توجد برامج مكتملة مسجلة في هذا الشهر بعد.', starsCert: '🏅 شهادة شكر', starsTotal: 'اكتمل {n} برنامجاً هذا الشهر',
@@ -22,11 +28,15 @@ Object.assign(I18N.ar, {
 Object.assign(I18N.en, {
   progTitle: '📈 Progress over the weeks', progNote: 'Share of completed programs per stage. Hollow points are estimated from earlier completion dates; filled points are real daily snapshots.', progFew: 'The chart builds up day by day — one snapshot is taken every day.',
   navLog: 'Activity log', tLog: 'Activity log', tLogD: 'Who changed what, and when', logTitle: 'Activity log', logSearch: 'Search a name, program or action…', logGo: 'Search', logMore: 'Show more', logNone: 'No results.', logCount: '{n} entries',
-  navReport: 'Weekly report', tReport: 'Weekly report', tReportD: 'The week’s summary and backups', repTitle: 'Weekly report',
+  navReport: 'Weekly report', tReport: 'Weekly report', tReportD: 'The week’s summary, send times and backups', repTitle: 'Weekly report',
   repIntro: 'Sent automatically every Sunday morning by e-mail (with a PDF copy) to the owner, the principal, the academic VP and the academic supervisor when the daily job is on.',
   repShow: 'Show this week’s report', repSendNow: 'Send to management now', repConfirm: 'E-mail the weekly report to management now?', repSent: '✅ Report sent to {n}', repOnlyCtrl: 'This page is for the owner, the principal, the academic VP and the academic supervisor.',
-  autoTitle: '⚙️ Daily job and backups', autoIntro: 'Every day at 6:40 am: a progress snapshot, and each person is reminded of what starts or ends tomorrow (in the app and on the phone). Every Sunday: the weekly report and a backup of both data files (the last 8 are kept).',
-  autoOn: 'The daily job is on', autoOff: 'The daily job is off', autoEnable: 'Turn on', autoDisable: 'Turn off', autoLast: 'Last run: {d}', autoOwner: 'Only the owner can turn it on.',
+  autoTitle: '⏰ Daily send times', autoIntro: 'The owner and the school principal can change them. A new time applies from the next run; Google sends within about 15 minutes of the chosen time (Riyadh time).',
+  schAlerts: 'E-mail and WhatsApp alerts', schAlertsD: 'Program start, end and overdue alerts — to the person doing it and the follower, and to the principal and academic VP 24 hours before and on the day.',
+  schDaily: 'App and phone notifications', schDailyD: 'Each person is reminded of what starts or ends tomorrow and what is overdue, plus the daily progress snapshot. Every Sunday at the same time: the weekly report by e-mail and a backup.',
+  schAt: 'Time', schSave: 'Save time', schSaved: '✅ Saved — {w} at {t}', schLastMail: 'Last sent: {d}', schNever: 'Not sent yet',
+  autoOn: 'On', autoOff: 'Off', autoEnable: 'Turn on', autoDisable: 'Turn off', autoLast: 'Last run: {d}', autoOwner: 'Only the owner can switch these on or off.', schView: 'Only the owner and the school principal can change the time.',
+  autoTitle2: '💾 Backups',
   bkTitle: 'Backups', bkNow: 'Back up now', bkDone: '✅ Backup created', bkNone: 'No backups yet.', bkWorking: 'Creating the backup…',
   navStars: 'Top performers', tStars: 'Top performers', tStarsD: 'Most completed this month', starsTitle: '🏆 Top performers', starsIntro: 'Staff ranked by the programs completed and approved in the month, and how many were on time.',
   starsDone: '{n} completed', starsOnTime: '{n} on time', starsNone: 'No completed programs recorded this month yet.', starsCert: '🏅 Certificate', starsTotal: '{n} programs completed this month',
@@ -100,16 +110,34 @@ async function renderAuto() {
   const box = $('autoBox'); box.innerHTML = `<p class="mini">${esc(t('xLoading'))}</p>`;
   try {
     const r = await api('autoState');
-    box.innerHTML = `<h3>${esc(t('autoTitle'))}</h3><p class="mini">${esc(t('autoIntro'))}</p>
-      <div class="row" style="gap:8px;align-items:center"><span class="pill ${r.daily ? 'on' : ''}">${esc(t(r.daily ? 'autoOn' : 'autoOff'))}</span>
-      ${isOwner() ? `<button class="btn sm ${r.daily ? '' : 'p'}" onclick="autoSet(${!r.daily})">${esc(t(r.daily ? 'autoDisable' : 'autoEnable'))}</button>` : `<span class="mini">${esc(t('autoOwner'))}</span>`}
-      ${r.last ? `<span class="mini">${esc(t('autoLast', { d: fmtDT(r.last.at) }))}</span>` : ''}</div>
+    const row = (what, icon, on, time, last) => `<div class="sch">
+      <div class="sch-h"><span class="sch-ic">${ic(icon)}</span><div class="grow"><b>${esc(t(what === 'alerts' ? 'schAlerts' : 'schDaily'))}</b><div class="mini">${esc(t(what === 'alerts' ? 'schAlertsD' : 'schDailyD'))}</div></div><span class="pill ${on ? 'on' : ''}">${esc(t(on ? 'autoOn' : 'autoOff'))}</span></div>
+      <div class="sch-c">${r.canTime ? `<label class="f" for="t-${what}">${esc(t('schAt'))}</label><select id="t-${what}" onchange="$('s-${what}').disabled=this.value==='${time}'">${timeOpts(time)}</select><button class="btn p sm" id="s-${what}" disabled onclick="saveTime('${what}')">${esc(t('schSave'))}</button>`
+        : `<span class="sch-t">${ic('clock')} ${esc(fmtTime(time))}</span>`}
+        ${r.canToggle ? `<button class="btn sm" onclick="autoSet(${!on},'${what}')">${esc(t(on ? 'autoDisable' : 'autoEnable'))}</button>` : ''}
+        <span class="mini">${esc(last)}</span></div></div>`;
+    box.innerHTML = `<h3>${esc(t('autoTitle'))}</h3><p class="mini">${esc(t('autoIntro'))}</p>` +
+      row('alerts', 'mail', r.alerts, r.alertTime, r.lastCheck ? t('schLastMail', { d: fmtDT(r.lastCheck) }) : t('schNever')) +
+      row('daily', 'bell-ring', r.daily, r.dailyTime, r.last ? t('autoLast', { d: fmtDT(r.last.at) }) : t('schNever')) +
+      `<p class="mini">${esc(t(r.canTime ? 'autoOwner' : 'schView'))}</p>
       <h3 style="margin-top:16px">${ic('database-backup')} ${esc(t('bkTitle'))}</h3>
       <button class="btn sm" onclick="backupNow()">${esc(t('bkNow'))}</button>
       ${(r.backups || []).length ? `<div class="bkl">${r.backups.map(b => `<a class="bkr" href="${esc(b.url)}" target="_blank" rel="noopener">${ic('file-spreadsheet')}<span class="grow">${esc(b.name)}</span><span class="mini">${fmtDT(b.at)}</span></a>`).join('')}</div>` : `<p class="meta">${esc(t('bkNone'))}</p>`}`;
   } catch (e) { box.innerHTML = `<p class="mini">❌ ${esc(e.message)}</p>`; }
 }
-async function autoSet(on) { try { await api('autoSet', { on }); renderAuto(); } catch (e) { toast('❌ ' + e.message, 6000); } }
+async function autoSet(on, what) { try { await api('autoSet', { on, what: what || 'daily' }); renderAuto(); } catch (e) { toast('❌ ' + e.message, 6000); } }
+/** «07:00» → «7:00 ص» / «7:00 am» */
+function fmtTime(hm) { const [h, m] = String(hm || '').split(':').map(Number); if (isNaN(h)) return '—'; const h12 = h % 12 || 12; return h12 + ':' + String(m || 0).padStart(2, '0') + ' ' + (EN() ? (h < 12 ? 'am' : 'pm') : (h < 12 ? 'ص' : 'م')); }
+function timeOpts(cur) {
+  const list = []; for (let h = 0; h < 24; h++) for (let m = 0; m < 60; m += 15) list.push(String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0'));
+  if (cur && list.indexOf(cur) < 0) { list.push(cur); list.sort(); }
+  return list.map(v => `<option value="${v}" ${v === cur ? 'selected' : ''}>${fmtTime(v)}</option>`).join('');
+}
+async function saveTime(what) {
+  const v = $('t-' + what).value, b = $('s-' + what); b.disabled = true;
+  try { await api('autoTime', { which: what, time: v }); toast(t('schSaved', { w: t(what === 'alerts' ? 'schAlerts' : 'schDaily'), t: fmtTime(v) }), 4000); renderAuto(); }
+  catch (e) { b.disabled = false; toast('❌ ' + e.message, 6000); }
+}
 async function backupNow() { toast(t('bkWorking'), 120000); try { await api('backupNow', {}, { timeout: 240000 }); toast(t('bkDone'), 3500); renderAuto(); } catch (e) { toast('❌ ' + e.message, 6000); } }
 
 // ------------------------------------------------------------------ recognition + certificate
